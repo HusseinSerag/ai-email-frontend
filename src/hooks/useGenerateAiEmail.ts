@@ -1,9 +1,6 @@
-import { createAxiosClient } from "@/api/axios";
 import { useMutation } from "@tanstack/react-query";
 import { useCustomAuth } from "./useCustomAuth";
-import { useEffect } from "react";
 
-async function generate() {}
 export default function useGenerateEmail() {
   const { getToken } = useCustomAuth();
   const { mutate, isPending } = useMutation({

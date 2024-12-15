@@ -8,7 +8,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import ReplyBox from "./ReplyBox";
+
 import EmailEditor from "./EmailEditor";
 import { useEmailEditorStates } from "@/hooks/useEmailEditorStates";
 import { useState } from "react";
@@ -38,7 +38,6 @@ export function ComposeEmail() {
       });
       return;
     }
-    console.log(files);
 
     sendEmail(
       createEmailFormData({

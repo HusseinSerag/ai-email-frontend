@@ -15,7 +15,6 @@ import ErrorPage from "./pages/error";
 import { ThemeProvider } from "./context/themeProvider";
 import Kbar from "./lib/kbar";
 import { useSetTitle } from "./hooks/useSetTitle";
-import DocumentViewer from "./components/ui/DocumentViewer";
 
 const queryClient = new QueryClient();
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;

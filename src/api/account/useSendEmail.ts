@@ -16,7 +16,7 @@ export default function useSendEmail() {
       try {
         const token = await getToken();
         if (!token || !chosenAccount) throw new Error("Unauthenticated!");
-        const res = await createAxiosClient(token).post(
+        await createAxiosClient(token).post(
           `/api/accounts/send/${chosenAccount.id}`,
           body
         );

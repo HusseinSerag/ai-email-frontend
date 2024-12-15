@@ -17,10 +17,7 @@ interface AiComposeButtonProps {
   isComposing: boolean;
   onGenerate(token: string): Promise<void>;
 }
-export default function AiComposeButton({
-  isComposing,
-  onGenerate,
-}: AiComposeButtonProps) {
+export default function AiComposeButton({ onGenerate }: AiComposeButtonProps) {
   const [open, setOpen] = useState(false);
   const [prompt, setPrompt] = useState("");
 
