@@ -29,6 +29,7 @@
 		"indent": ["error", "tab"],
 		"react/jsx-indent": ["error", "tab"],
 		"react/jsx-indent-props": ["error", "tab"],
-		"max-len": ["error", { "code": 120 }]
+		"max-len": ["error", { "code": 120 }],
+    "ignorePatterns": ["**/node_modules/**"]
 	}
 }
