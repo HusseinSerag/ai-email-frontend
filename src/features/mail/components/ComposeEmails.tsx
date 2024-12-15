@@ -13,8 +13,9 @@ import {
 import { useEmailEditorStates } from '@/features/mail/hooks/useEmailEditorStates'
 import { toast } from '@/hooks/use-toast'
 import { useMail } from '@/hooks/useMail'
-import { createEmailFormData } from '@/lib/utils'
+
 import { useState } from 'react'
+import { createEmailFormData } from '../utils/createFormDataEmail'
 import EmailEditor from './EmailEditor'
 
 export function ComposeEmail() {

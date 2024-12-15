@@ -1,21 +1,25 @@
+import type { Done } from '@/lib/globals'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import ThreadList from '@/features/threads/components/ThreadsList'
+
+import { useCurrentDone } from '@/hooks/useCurrentDone'
+
 import { useMail } from '@/hooks/useMail'
-import { inboxOrDone } from '@/lib/globals'
 import { isInitialized } from '@/lib/types'
-import { useLocalStorage } from 'usehooks-ts'
 import { useDashboard } from '../context/dashboard-context'
 import LoadingSyncing from './LoadingSyncing'
 
 export default function ThreadListDashboard() {
   const { progress } = useDashboard()
   const { chosenAccount } = useMail()
-  const [isDone, setIsDone] = useLocalStorage(inboxOrDone, 'inbox')
+  const { done, setDone } = useCurrentDone()
   return (
     <Tabs
-      value={isDone}
-      onValueChange={e => setIsDone(e)}
+      value={done}
+      onValueChange={(e) => {
+        setDone(e as Done)
+      }}
       className=" h-full "
       defaultValue="inbox"
     >

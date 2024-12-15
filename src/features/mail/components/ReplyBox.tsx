@@ -5,7 +5,8 @@ import useSendEmail from '@/api/account/useSendEmail'
 import { useEmailEditorStates } from '@/features/mail/hooks/useEmailEditorStates'
 import { toast } from '@/hooks/use-toast'
 import { useMail } from '@/hooks/useMail'
-import { createEmailFormData } from '@/lib/utils'
+
+import { createEmailFormData } from '../utils/createFormDataEmail'
 import EmailEditor from './EmailEditor'
 
 export default function ReplyBox() {

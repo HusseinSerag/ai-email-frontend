@@ -1,3 +1,2 @@
-export const localStorageKeyAccountId = 'current-chosen-account'
-export const chosenTab = 'current-chosen-tab'
-export const inboxOrDone = 'current-inbox-or-done'
+export type Tab = 'inbox' | 'draft' | 'sent'
+export type Done = 'inbox' | 'done'

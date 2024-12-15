@@ -1,4 +1,4 @@
-import useKbarMail from '@/lib/kbar/useKbarMailPage'
+import useKbarMail from '@/features/kbar/useKbarMailPage'
 import { createContext, type ReactNode, useContext, useState } from 'react'
 
 import useIOevents from '../hooks/useIOevents'

@@ -1,14 +1,16 @@
-import { ClerkProvider } from '@clerk/clerk-react'
+import { MainErrorFallback } from '@/error/MainErrorFallback'
 
+import { ClerkProvider } from '@clerk/clerk-react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ErrorBoundary } from 'react-error-boundary'
 import { useNavigate } from 'react-router-dom'
 import { Toaster } from '../components/ui/toaster'
+
 import { ThemeProvider } from '../context/themeProvider'
+
+import Kbar from '../features/kbar'
 import { useSetTitle } from '../hooks/useSetTitle'
-
-import Kbar from '../lib/kbar'
-
 import Router from './router'
 import '@cyntler/react-doc-viewer/dist/index.css'
 
@@ -23,18 +25,20 @@ export default function Provider() {
   const navigate = useNavigate()
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ClerkProvider
-        routerPush={to => navigate(to)}
-        routerReplace={to => navigate(to, { replace: true })}
-        publishableKey={PUBLISHABLE_KEY}
-        afterSignOutUrl="/"
-      >
-        <Component />
-      </ClerkProvider>
-      <Toaster />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <ErrorBoundary FallbackComponent={MainErrorFallback}>
+      <QueryClientProvider client={queryClient}>
+        <ClerkProvider
+          routerPush={to => navigate(to)}
+          routerReplace={to => navigate(to, { replace: true })}
+          publishableKey={PUBLISHABLE_KEY}
+          afterSignOutUrl="/"
+        >
+          <Component />
+        </ClerkProvider>
+        <Toaster />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </ErrorBoundary>
   )
 }
 

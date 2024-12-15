@@ -1,18 +1,19 @@
 import { useGetAuthUrl } from '@/features/dashboard/hooks/useGetAuthUrl'
+import { useCurrentAccount } from '@/hooks/useCurrentAccount'
+
 import { useMail } from '@/hooks/useMail'
-import { localStorageKeyAccountId } from '@/lib/globals'
+
 import { cn } from '@/lib/utils'
 
 import { Plus, RotateCcw } from 'lucide-react'
-import { useLocalStorage } from 'usehooks-ts'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './select'
-import { LoadingSpinner } from './spinner'
+} from '../../../components/ui/select'
+import { LoadingSpinner } from '../../../components/ui/spinner'
 
 interface AccountSwitcherProps {
   isCollapsed: boolean
@@ -20,10 +21,7 @@ interface AccountSwitcherProps {
 
 export default function AccountSwitcher({ isCollapsed }: AccountSwitcherProps) {
   const { accounts, setThreadId } = useMail()
-  const [value, setValue] = useLocalStorage<string>(
-    localStorageKeyAccountId,
-    '',
-  )
+  const { value, setValue } = useCurrentAccount()
 
   const { errorGettingUrl, getAuthUrl, isGettingUrl } = useGetAuthUrl()
   return (

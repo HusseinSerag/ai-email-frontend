@@ -1,23 +1,25 @@
 'use client'
 
+import type { Tab } from '@/lib/globals'
+
 // import Link from "next/link"
 import type { LucideIcon } from 'lucide-react'
-
 import { buttonVariants } from '@/components/ui/button'
+
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { chosenTab } from '@/lib/globals'
 
+import { useCurrentTab } from '@/hooks/useCurrentTab'
 import { cn } from '@/lib/utils'
-import { useLocalStorage } from 'usehooks-ts'
 
 interface NavProps {
   isCollapsed: boolean
   links: {
-    title: string
+    title: Tab
+    display: string
     label?: string
     icon: LucideIcon
     variant: 'default' | 'ghost'
@@ -25,7 +27,7 @@ interface NavProps {
 }
 
 export function Nav({ links, isCollapsed }: NavProps) {
-  const [_, setTab] = useLocalStorage(chosenTab, 'inbox')
+  const { setTab } = useCurrentTab()
 
   return (
     <div
@@ -39,7 +41,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
                 <Tooltip key={index} delayDuration={0}>
                   <TooltipTrigger asChild>
                     <span
-                      onClick={() => setTab(link.title.toLowerCase())}
+                      onClick={() => setTab(link.title)}
                       className={cn(
                         buttonVariants({ variant: link.variant, size: 'icon' }),
                         'h-9 w-9 cursor-pointer',
@@ -48,11 +50,11 @@ export function Nav({ links, isCollapsed }: NavProps) {
                       )}
                     >
                       <link.icon className="w-4 h-4" />
-                      <span className="sr-only">{link.title}</span>
+                      <span className="sr-only">{link.display}</span>
                     </span>
                   </TooltipTrigger>
                   <TooltipContent side="right" className="flex items-center gap-4">
-                    {link.title}
+                    {link.display}
                     {link.label && (
                       <span className="ml-auto text-muted-foreground">
                         {link.label}
@@ -64,7 +66,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
             : (
                 <span
                   key={index}
-                  onClick={() => setTab(link.title.toLowerCase())}
+                  onClick={() => setTab(link.title)}
                   className={cn(
                     buttonVariants({ variant: link.variant, size: 'sm' }),
                     link.variant === 'default'
@@ -73,7 +75,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
                   )}
                 >
                   <link.icon className="w-4 h-4 mr-2" />
-                  {link.title}
+                  {link.display}
                   {link.label && (
                     <span
                       className={cn(

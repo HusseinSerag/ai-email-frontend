@@ -2,14 +2,15 @@ import type { EmailThread } from '@/lib/types'
 import type { ReactNode } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { LoadingSpinner } from '@/components/ui/spinner'
-import { useMail } from '@/hooks/useMail'
-import { chosenTab } from '@/lib/globals'
-import { cn } from '@/lib/utils'
-import { format, formatDistanceToNow } from 'date-fns'
+import { useCurrentTab } from '@/hooks/useCurrentTab'
 
+import { useMail } from '@/hooks/useMail'
+import { cn } from '@/lib/utils'
+
+import { format, formatDistanceToNow } from 'date-fns'
 import DOMPurify from 'dompurify'
+
 import { Fragment } from 'react/jsx-runtime'
-import { useLocalStorage } from 'usehooks-ts'
 import { getBadgeVariantFromLabel } from '../util/getBageVariant'
 
 interface ThreadListProps {
@@ -17,7 +18,7 @@ interface ThreadListProps {
 }
 export default function ThreadList({ children }: ThreadListProps) {
   const { threads, isLoadingThreads, setThreadId, threadId } = useMail()
-  const [tab] = useLocalStorage(chosenTab, 'inbox')
+  const { tab } = useCurrentTab()
 
   if (isLoadingThreads) {
     return (

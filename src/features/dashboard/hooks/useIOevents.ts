@@ -1,16 +1,17 @@
+import { useCurrentAccount } from '@/hooks/useCurrentAccount'
 import { useCustomAuth } from '@/hooks/useCustomAuth'
+
 import { useMail } from '@/hooks/useMail'
-import { localStorageKeyAccountId } from '@/lib/globals'
 import { MySocket } from '@/lib/socket'
 import { useQueryClient } from '@tanstack/react-query'
+
 import { useEffect, useState } from 'react'
-import { useLocalStorage } from 'usehooks-ts'
 import { useToast } from '../../../hooks/use-toast'
 
 export default function useIOevents() {
   const { toast } = useToast()
   const { accounts, refetchThreads } = useMail()
-  const [accountId] = useLocalStorage(localStorageKeyAccountId, '')
+  const { value: accountId } = useCurrentAccount()
   const chosenAcc = accounts?.find(acc => acc.id === accountId)
   const { userId } = useCustomAuth()
   const queryClient = useQueryClient()

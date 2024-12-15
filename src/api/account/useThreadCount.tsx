@@ -1,12 +1,12 @@
+import { useCurrentAccount } from '@/hooks/useCurrentAccount'
+
 import { useCustomAuth } from '@/hooks/useCustomAuth'
-import { localStorageKeyAccountId } from '@/lib/globals'
 import { useQuery } from '@tanstack/react-query'
-import { useLocalStorage } from 'usehooks-ts'
 import { createAxiosClient } from '../axios'
 
 export default function useThreadCount() {
   const { userId, getToken } = useCustomAuth()
-  const [accountId] = useLocalStorage(localStorageKeyAccountId, '')
+  const { value: accountId } = useCurrentAccount()
   const { data: count, isPending: isPendingCount } = useQuery({
     queryKey: ['thread-count', userId, accountId],
     async queryFn() {

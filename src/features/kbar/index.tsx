@@ -1,7 +1,16 @@
-import type { Action, KBarAnimator, KBarPortal, KBarPositioner, KBarProvider, KBarSearch } from 'kbar'
+import type {
+  Action,
+} from 'kbar'
 import type { ReactNode } from 'react'
-
 import { useTheme } from '@/context/themeProvider'
+
+import {
+  KBarAnimator,
+  KBarPortal,
+  KBarPositioner,
+  KBarProvider,
+  KBarSearch,
+} from 'kbar'
 import RenderResults from './RenderResults'
 
 interface KbarProps {

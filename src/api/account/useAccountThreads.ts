@@ -1,19 +1,18 @@
 import type { EmailThreadArray } from '@/lib/types'
+import { useCurrentAccount } from '@/hooks/useCurrentAccount'
+
+import { useCurrentDone } from '@/hooks/useCurrentDone'
+
+import { useCurrentTab } from '@/hooks/useCurrentTab'
 import { useCustomAuth } from '@/hooks/useCustomAuth'
-import {
-  chosenTab,
-  inboxOrDone,
-  localStorageKeyAccountId,
-} from '@/lib/globals'
 import { useQuery } from '@tanstack/react-query'
-import { useLocalStorage } from 'usehooks-ts'
 import { createAxiosClient } from '../axios'
 
 export default function useAccountThreads() {
   const { userId, getToken } = useCustomAuth()
-  const [accountId] = useLocalStorage(localStorageKeyAccountId, '')
-  const [tab] = useLocalStorage(chosenTab, 'inbox')
-  const [done] = useLocalStorage(inboxOrDone, 'inbox')
+  const { value: accountId } = useCurrentAccount()
+  const { tab } = useCurrentTab()
+  const { done } = useCurrentDone()
   const {
     data: threads,
     isPending: isLoadingThreads,

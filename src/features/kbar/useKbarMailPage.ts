@@ -1,22 +1,18 @@
 import type { Action } from 'kbar'
+import { useCurrentAccount } from '@/hooks/useCurrentAccount'
+
+import { useCurrentDone } from '@/hooks/useCurrentDone'
+import { useCurrentTab } from '@/hooks/useCurrentTab'
+
 import { useMail } from '@/hooks/useMail'
-import {
-  chosenTab,
-  inboxOrDone,
-  localStorageKeyAccountId,
-} from '@/lib/globals'
 import { Priority, useRegisterActions } from 'kbar'
 import { useMemo } from 'react'
-import { useLocalStorage } from 'usehooks-ts'
 
 export default function useKbarMail() {
-  const [_, setTab] = useLocalStorage<'inbox' | 'draft' | 'sent'>(
-    chosenTab,
-    'inbox',
-  )
-  const [___, setDone] = useLocalStorage(inboxOrDone, 'inbox')
+  const { setTab } = useCurrentTab()
+  const { setDone } = useCurrentDone()
   const { accounts } = useMail()
-  const [__, setAccountId] = useLocalStorage(localStorageKeyAccountId, '')
+  const { setValue: setAccountId } = useCurrentAccount()
   const kbarAccounts = useMemo(() => {
     return accounts?.map(
       account =>
@@ -27,7 +23,7 @@ export default function useKbarMail() {
           perform() {
             setAccountId(account.id)
           },
-        } as Action),
+        }) as Action,
     )
   }, [accounts])
 

@@ -1,15 +1,16 @@
+import { useCurrentTab } from '@/hooks/useCurrentTab'
+
 import { useMail } from '@/hooks/useMail'
-import { chosenTab } from '@/lib/globals'
+
 import { File, Inbox, Send } from 'lucide-react'
-import { useLocalStorage } from 'usehooks-ts'
-import { Nav } from './nav'
+import { Nav } from '../../../components/ui/nav'
 
 interface SidebarProps {
   isCollapsed: boolean
 }
 
 export default function Sidebar({ isCollapsed }: SidebarProps) {
-  const [tab] = useLocalStorage<'inbox' | 'draft' | 'sent'>(chosenTab, 'inbox')
+  const { tab } = useCurrentTab()
   const { count } = useMail()
 
   return (
@@ -19,20 +20,23 @@ export default function Sidebar({ isCollapsed }: SidebarProps) {
         {
           label: count?.inbox.toString(),
           icon: Inbox,
-          title: 'Inbox',
+          title: 'inbox',
           variant: tab === 'inbox' ? 'default' : 'ghost',
+          display: 'Inbox',
         },
         {
-          title: 'Draft',
+          title: 'draft',
           label: count?.draft.toString(),
           icon: File,
           variant: tab === 'draft' ? 'default' : 'ghost',
+          display: 'Draft',
         },
         {
-          title: 'Sent',
+          title: 'sent',
           label: count?.sent.toString(),
           icon: Send,
           variant: tab === 'sent' ? 'default' : 'ghost',
+          display: 'Draft',
         },
       ]}
     />
