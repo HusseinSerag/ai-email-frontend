@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "lint": "eslint --fix . --ext .tsx",
     "preview": "vite preview",
-    "tunnel": "npx untun@latest tunnel http://localhost:5173"
+    "tunnel": "npx untun@latest tunnel http://localhost:5173",
+    
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.19.0",
@@ -76,14 +77,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint"
     }
-  },
-  "lint-staged": {
-    "*.{js,jsx}": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ]
   }
+  
 }
