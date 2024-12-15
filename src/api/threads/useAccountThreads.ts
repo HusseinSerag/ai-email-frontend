@@ -27,16 +27,17 @@ export default function useAccountThreads() {
         }
         const token = await getToken()
 
-        const res = await createAxiosClient(token!).get<{
-          data: EmailThreadArray
-        }>(`/api/accounts/threads/${accountId}`, {
-          params: {
-            isDone: done,
-            tab,
-          },
-        })
-
-        return res.data.data
+        return (
+          await createAxiosClient(token!).get<EmailThreadArray>(
+            `/api/accounts/threads/${accountId}`,
+            {
+              params: {
+                isDone: done,
+                tab,
+              },
+            },
+          )
+        ).data
       }
       catch (e) {
         return null

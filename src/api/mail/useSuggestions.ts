@@ -17,11 +17,11 @@ export default function useSuggestions() {
       try {
         const token = await getToken()
 
-        const res = await createAxiosClient(token!).get<{
-          data: Omit<EmailParticipant, 'accountId'>[]
-        }>(`/api/accounts/suggestions/${chosenAccount.id}`)
-
-        return res.data.data
+        return (
+          await createAxiosClient(token!).get<
+            Omit<EmailParticipant, 'accountId'>[]
+          >(`/api/accounts/suggestions/${chosenAccount.id}`)
+        ).data
       }
       catch (e) {
         return null

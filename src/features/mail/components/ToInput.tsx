@@ -1,4 +1,4 @@
-import useSuggestions from '@/api/account/useSuggestions'
+import useSuggestions from '@/api/mail/useSuggestions'
 
 import { useState } from 'react'
 import Avatar from 'react-avatar'

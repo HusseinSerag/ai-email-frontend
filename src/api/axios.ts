@@ -1,3 +1,4 @@
+import { toast } from '@/hooks/use-toast'
 import axios from 'axios'
 
 export function createAxiosClient(token: string) {
@@ -9,5 +10,17 @@ export function createAxiosClient(token: string) {
     },
     withCredentials: true,
   })
+  // for better error and response handling
+  axiosClient.interceptors.response.use(
+    response => response.data,
+    (error) => {
+      const message = error.response?.data?.message || error.message
+      toast({
+        title: 'Error',
+        description: message,
+      })
+      return null
+    },
+  )
   return axiosClient
 }

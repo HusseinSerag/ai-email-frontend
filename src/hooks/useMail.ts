@@ -1,6 +1,6 @@
-import useAccountThreads from '@/api/account/useAccountThreads'
-import useThreadCount from '@/api/account/useThreadCount'
 import useUserAccounts from '@/api/account/useUserAccounts'
+import useAccountThreads from '@/api/threads/useAccountThreads'
+import useThreadCount from '@/api/threads/useThreadCount'
 
 import { atom, useAtom } from 'jotai'
 

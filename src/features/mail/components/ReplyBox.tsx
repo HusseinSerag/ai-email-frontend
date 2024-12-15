@@ -1,6 +1,6 @@
 import type { ReplyToInformation } from '@/lib/types'
-import useReplyToInfo from '@/api/account/useReplyToThread'
-import useSendEmail from '@/api/account/useSendEmail'
+import useSendEmail from '@/api/mail/useSendEmail'
+import useReplyToInfo from '@/api/threads/useReplyToInfoThread'
 
 import { useEmailEditorStates } from '@/features/mail/hooks/useEmailEditorStates'
 import { toast } from '@/hooks/use-toast'

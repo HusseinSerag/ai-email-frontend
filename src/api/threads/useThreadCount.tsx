@@ -16,15 +16,13 @@ export default function useThreadCount() {
         }
         const token = await getToken()
 
-        const res = await createAxiosClient(token!).get<{
-          data: {
+        return (
+          await createAxiosClient(token!).get<{
             draft: number
             sent: number
             inbox: number
-          }
-        }>(`/api/accounts/thread-count/${accountId}`)
-
-        return res.data.data
+          }>(`/api/accounts/thread-count/${accountId}`)
+        ).data
       }
       catch (e) {
         return null

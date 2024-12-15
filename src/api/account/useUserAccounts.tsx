@@ -13,11 +13,9 @@ export default function useUserAccounts() {
           throw new Error('No userId')
         const token = await getToken()
 
-        const res = await createAxiosClient(token!).get<{
-          data: Account[]
-        }>('/api/accounts/user')
-
-        return res.data.data
+        return (
+          await createAxiosClient(token!).get<Account[]>('/api/accounts/user')
+        ).data
       }
       catch (e) {
         return null

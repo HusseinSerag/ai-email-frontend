@@ -1,6 +1,6 @@
 'use client'
 
-import useSendEmail from '@/api/account/useSendEmail'
+import useSendEmail from '@/api/mail/useSendEmail'
 import { Button } from '@/components/ui/button'
 
 import {

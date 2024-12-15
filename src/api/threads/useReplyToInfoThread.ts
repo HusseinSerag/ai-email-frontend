@@ -22,11 +22,12 @@ export default function useReplyToInfo() {
         }
         const token = await getToken()
 
-        const res = await createAxiosClient(token!).get<{
-          data: ReplyToInformation
-        }>(`/api/accounts/thread/${accountId}/${threadId}`, {})
-
-        return res.data.data
+        return (
+          await createAxiosClient(token!).get<ReplyToInformation>(
+            `/api/accounts/thread/${accountId}/${threadId}`,
+            {},
+          )
+        ).data
       }
       catch (e) {
         return null
