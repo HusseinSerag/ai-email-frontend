@@ -1,10 +1,10 @@
-import { LoadingSpinner } from "@/components/ui/spinner";
+import { LoadingSpinner } from '@/components/ui/spinner'
 
 interface LoadingSyncingProps {
   progress: {
-    done: number;
-    total: number;
-  };
+    done: number
+    total: number
+  }
 }
 export default function LoadingSyncing({ progress }: LoadingSyncingProps) {
   return (
@@ -15,7 +15,15 @@ export default function LoadingSyncing({ progress }: LoadingSyncingProps) {
         </div>
         {progress.total > 0 && (
           <div className="text-sm font-semibold">
-            A total of {progress.done} out {progress.total} emails synced
+            A total of
+            {' '}
+            {progress.done}
+            {' '}
+            out
+            {' '}
+            {progress.total}
+            {' '}
+            emails synced
           </div>
         )}
         <div>
@@ -23,5 +31,5 @@ export default function LoadingSyncing({ progress }: LoadingSyncingProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }

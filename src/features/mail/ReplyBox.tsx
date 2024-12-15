@@ -1,55 +1,56 @@
-import useReplyToInfo from "@/api/account/useReplyToThread";
-import EmailEditor from "./EmailEditor";
-import { ReplyToInformation } from "@/lib/types";
+import type { ReplyToInformation } from '@/lib/types'
+import useReplyToInfo from '@/api/account/useReplyToThread'
+import useSendEmail from '@/api/account/useSendEmail'
 
-import { useMail } from "@/hooks/useMail";
-import { useEmailEditorStates } from "@/hooks/useEmailEditorStates";
-import useSendEmail from "@/api/account/useSendEmail";
-import { toast } from "@/hooks/use-toast";
-import { createEmailFormData } from "@/lib/utils";
+import { toast } from '@/hooks/use-toast'
+import { useEmailEditorStates } from '@/hooks/useEmailEditorStates'
+import { useMail } from '@/hooks/useMail'
+import { createEmailFormData } from '@/lib/utils'
+import EmailEditor from './EmailEditor'
 
 export default function ReplyBox() {
-  const { details } = useReplyToInfo();
+  const { details } = useReplyToInfo()
 
-  return <Component key={details?.id ?? ""} details={details} />;
+  return <Component key={details?.id ?? ''} details={details} />
 }
 
 function Component({
   details,
 }: {
-  details: ReplyToInformation | undefined | null;
+  details: ReplyToInformation | undefined | null
 }) {
-  const { isSendingEmail, sendEmail } = useSendEmail();
-  const { threadId } = useMail();
-  const { ccValue, setCCValue, setSubject, setToValue, subject, toValue } =
-    useEmailEditorStates(details);
+  const { isSendingEmail, sendEmail } = useSendEmail()
+  const { threadId } = useMail()
+  const { ccValue, setCCValue, setSubject, setToValue, subject, toValue }
+    = useEmailEditorStates(details)
   async function handleSend(value: string, file: File[]) {
-    if (!details) return;
-    if (toValue.length == 0) {
+    if (!details)
+      return
+    if (toValue.length === 0) {
       toast({
-        title: "Please send an email to someone!",
-      });
-      return;
+        title: 'Please send an email to someone!',
+      })
+      return
     }
 
     sendEmail(
       createEmailFormData({
         body: value,
-        subject: subject,
+        subject,
         threadId: threadId ?? undefined,
         from: details.from,
-        to: details.to.map((to) => ({
+        to: details.to.map(to => ({
           address: to.address,
-          name: to.name ?? "",
+          name: to.name ?? '',
         })),
-        cc: details.cc.map((cc) => ({
+        cc: details.cc.map(cc => ({
           address: cc.address,
-          name: cc.name ?? "",
+          name: cc.name ?? '',
         })),
         inReplyTo: details.id,
         files: file,
-      })
-    );
+      }),
+    )
   }
   return (
     <EmailEditor
@@ -57,12 +58,12 @@ function Component({
       setSubject={setSubject}
       toValue={toValue}
       ccValue={ccValue}
-      to={details?.to.map((to) => to.address) ?? []}
+      to={details?.to.map(to => to.address) ?? []}
       defaultToolBarExpanded={false}
       setCCValue={setCCValue}
       setToValue={setToValue}
       handleSend={handleSend}
       isSending={isSendingEmail}
     />
-  );
+  )
 }

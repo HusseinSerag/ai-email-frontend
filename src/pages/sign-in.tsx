@@ -1,9 +1,9 @@
-import { SignIn } from "@clerk/clerk-react";
+import { SignIn } from '@clerk/clerk-react'
 
 export default function SignInPage() {
   return (
     <div className="flex h-full items-center justify-center">
-      <SignIn forceRedirectUrl={"/mail"} />
+      <SignIn forceRedirectUrl="/mail" />
     </div>
-  );
+  )
 }

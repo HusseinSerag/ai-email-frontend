@@ -1,28 +1,30 @@
 export async function generateEmail(
-  { context, prompt }: { context: string; prompt: string },
-  getToken: () => Promise<string | null>
+  { context, prompt }: { context: string, prompt: string },
+  getToken: () => Promise<string | null>,
 ) {
   try {
-    const token = await getToken();
+    const token = await getToken()
 
-    if (!token) throw new Error("Unauthenticated");
+    if (!token)
+      throw new Error('Unauthenticated')
 
     const response = await fetch(
       `${import.meta.env.VITE_BACKEND_URL}/api/ai/generate`,
       {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify({
           context,
           prompt,
         }),
         headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-type": "application/json",
+          'Authorization': `Bearer ${token}`,
+          'Content-type': 'application/json',
         },
-      }
-    );
-    return response;
-  } catch (e) {
-    throw e;
+      },
+    )
+    return response
+  }
+  catch (e) {
+    throw e
   }
 }

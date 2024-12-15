@@ -1,55 +1,48 @@
-import { Action } from "kbar";
-import { ReactNode } from "react";
-import {
-  KBarProvider,
-  KBarPortal,
-  KBarPositioner,
-  KBarAnimator,
-  KBarSearch,
-} from "kbar";
+import type { Action, KBarAnimator, KBarPortal, KBarPositioner, KBarProvider, KBarSearch } from 'kbar'
+import type { ReactNode } from 'react'
 
-import RenderResults from "./RenderResults";
-import { useTheme } from "@/context/themeProvider";
+import { useTheme } from '@/context/themeProvider'
+import RenderResults from './RenderResults'
 
 interface KbarProps {
-  children: ReactNode;
+  children: ReactNode
 }
 interface KbarComponentProps {
-  children: ReactNode;
+  children: ReactNode
 }
 export default function Kbar({ children }: KbarProps) {
-  const { setTheme } = useTheme();
+  const { setTheme } = useTheme()
 
   const actions: Action[] = [
     {
-      id: "light",
-      name: "Light mode",
-      shortcut: ["l"],
-      keywords: "light, light mode",
-      section: "Theme",
-      subtitle: "Toggle light mode",
+      id: 'light',
+      name: 'Light mode',
+      shortcut: ['l'],
+      keywords: 'light, light mode',
+      section: 'Theme',
+      subtitle: 'Toggle light mode',
       perform: () => {
-        setTheme("light");
+        setTheme('light')
       },
     },
     {
-      id: "dark",
-      name: "Dark mode",
-      shortcut: ["d"],
-      keywords: "dark, dark mode",
-      section: "Theme",
-      subtitle: "Toggle dark mode",
+      id: 'dark',
+      name: 'Dark mode',
+      shortcut: ['d'],
+      keywords: 'dark, dark mode',
+      section: 'Theme',
+      subtitle: 'Toggle dark mode',
       perform: () => {
-        setTheme("dark");
+        setTheme('dark')
       },
     },
-  ];
+  ]
 
   return (
     <KBarProvider actions={actions}>
       <KbarComponent>{children}</KbarComponent>
     </KBarProvider>
-  );
+  )
 }
 function KbarComponent({ children }: KbarComponentProps) {
   return (
@@ -68,5 +61,5 @@ function KbarComponent({ children }: KbarComponentProps) {
       </KBarPortal>
       {children}
     </>
-  );
+  )
 }

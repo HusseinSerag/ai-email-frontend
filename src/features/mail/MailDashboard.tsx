@@ -1,43 +1,43 @@
+import AccountSwitcher from '@/components/ui/account-switcher'
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@/components/ui/resizable";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
-import { useState } from "react";
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useMail } from "@/hooks/useMail";
-import AccountSwitcher from "@/components/ui/account-switcher";
-import { UserButton } from "@clerk/clerk-react";
-import Sidebar from "@/components/ui/sidebar";
+} from '@/components/ui/resizable'
+import { Separator } from '@/components/ui/separator'
+import Sidebar from '@/components/ui/sidebar'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { ModeToggle } from '@/components/ui/themeToggle'
+import { TooltipProvider } from '@/components/ui/tooltip'
+import useIOevents from '@/hooks/useIOevents'
+import { useMail } from '@/hooks/useMail'
+import { inboxOrDone } from '@/lib/globals'
 
-import { useLocalStorage } from "usehooks-ts";
-import { inboxOrDone } from "@/lib/globals";
-import ThreadList from "./ThreadsList";
-import { isInitialized } from "@/lib/types";
-import LoadingSyncing from "./LoadingSyncing";
-import useIOevents from "@/hooks/useIOevents";
-import { ModeToggle } from "@/components/ui/themeToggle";
-import ThreadDisplay from "./ThreadDisplay";
-import useKbarMail from "@/lib/kbar/useKbarMailPage";
-import { ComposeEmail } from "./ComposeEmails";
+import useKbarMail from '@/lib/kbar/useKbarMailPage'
+import { isInitialized } from '@/lib/types'
+import { cn } from '@/lib/utils'
+import { UserButton } from '@clerk/clerk-react'
+import { useState } from 'react'
+import { useLocalStorage } from 'usehooks-ts'
+import { ComposeEmail } from './ComposeEmails'
+import LoadingSyncing from './LoadingSyncing'
+import ThreadDisplay from './ThreadDisplay'
+import ThreadList from './ThreadsList'
 
 interface MailProps {
-  defaultLayout?: [number, number, number];
-  navCollapsedSize: number;
+  defaultLayout?: [number, number, number]
+  navCollapsedSize: number
 }
 
 export default function MailDashboard({
   defaultLayout = [20, 32, 48],
   navCollapsedSize,
 }: MailProps) {
-  const { chosenAccount } = useMail();
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isDone, setIsDone] = useLocalStorage(inboxOrDone, "inbox");
-  const { progress } = useIOevents();
-  useKbarMail();
+  const { chosenAccount } = useMail()
+  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isDone, setIsDone] = useLocalStorage(inboxOrDone, 'inbox')
+  const { progress } = useIOevents()
+  useKbarMail()
 
   return (
     <TooltipProvider delayDuration={0}>
@@ -53,20 +53,20 @@ export default function MailDashboard({
           minSize={15}
           maxSize={20}
           onCollapse={() => {
-            setIsCollapsed(true);
+            setIsCollapsed(true)
           }}
           onResize={() => {
-            setIsCollapsed(false);
+            setIsCollapsed(false)
           }}
           className={cn({
-            isCollapsed: "min-w-[50px] transition-all duration-300 ease-in-out",
+            isCollapsed: 'min-w-[50px] transition-all duration-300 ease-in-out',
           })}
         >
           <div className="flex flex-col h-full flex-1">
             <div
               className={cn(
-                "flex h-[52px] items-center justify-between",
-                isCollapsed ? "h-[52px]" : "p-2"
+                'flex h-[52px] items-center justify-between',
+                isCollapsed ? 'h-[52px]' : 'p-2',
               )}
             >
               <AccountSwitcher isCollapsed={isCollapsed} />
@@ -89,7 +89,7 @@ export default function MailDashboard({
         <ResizablePanel minSize={30} defaultSize={defaultLayout[1]}>
           <Tabs
             value={isDone}
-            onValueChange={(e) => setIsDone(e)}
+            onValueChange={e => setIsDone(e)}
             className=" h-full "
             defaultValue="inbox"
           >
@@ -114,10 +114,10 @@ export default function MailDashboard({
             {/* search bar */}
 
             <ThreadList>
-              {chosenAccount &&
-                chosenAccount.isSyncedInitially === isInitialized.start && (
-                  <LoadingSyncing progress={progress} />
-                )}
+              {chosenAccount
+              && chosenAccount.isSyncedInitially === isInitialized.start && (
+                <LoadingSyncing progress={progress} />
+              )}
             </ThreadList>
           </Tabs>
         </ResizablePanel>
@@ -127,5 +127,5 @@ export default function MailDashboard({
         </ResizablePanel>
       </ResizablePanelGroup>
     </TooltipProvider>
-  );
+  )
 }

@@ -1,21 +1,21 @@
-"use client";
+'use client'
 
-import { Button } from "@/components/ui/button";
+import useSendEmail from '@/api/account/useSendEmail'
+import { Button } from '@/components/ui/button'
+
 import {
   Drawer,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer";
-
-import EmailEditor from "./EmailEditor";
-import { useEmailEditorStates } from "@/hooks/useEmailEditorStates";
-import { useState } from "react";
-import useSendEmail from "@/api/account/useSendEmail";
-import { useMail } from "@/hooks/useMail";
-import { toast } from "@/hooks/use-toast";
-import { createEmailFormData } from "@/lib/utils";
+} from '@/components/ui/drawer'
+import { toast } from '@/hooks/use-toast'
+import { useEmailEditorStates } from '@/hooks/useEmailEditorStates'
+import { useMail } from '@/hooks/useMail'
+import { createEmailFormData } from '@/lib/utils'
+import { useState } from 'react'
+import EmailEditor from './EmailEditor'
 
 export function ComposeEmail() {
   const {
@@ -26,17 +26,18 @@ export function ComposeEmail() {
     setToValue,
     subject,
     toValue,
-  } = useEmailEditorStates();
-  const { isSendingEmail, sendEmail } = useSendEmail();
-  const { chosenAccount } = useMail();
-  const [open, setOpen] = useState(false);
+  } = useEmailEditorStates()
+  const { isSendingEmail, sendEmail } = useSendEmail()
+  const { chosenAccount } = useMail()
+  const [open, setOpen] = useState(false)
   async function handleSend(value: string, files: File[]) {
-    if (!chosenAccount) return;
-    if (toValue.length == 0) {
+    if (!chosenAccount)
+      return
+    if (toValue.length === 0) {
       toast({
-        title: "Please send an email to someone!",
-      });
-      return;
+        title: 'Please send an email to someone!',
+      })
+      return
     }
 
     sendEmail(
@@ -44,13 +45,13 @@ export function ComposeEmail() {
         body: value,
         from: {
           address: chosenAccount.emailAddress,
-          name: chosenAccount.name ?? "",
+          name: chosenAccount.name ?? '',
         },
-        to: toValue.map((to) => ({
+        to: toValue.map(to => ({
           address: to.value,
           name: to.value,
         })),
-        cc: ccValue.map((cc) => ({
+        cc: ccValue.map(cc => ({
           address: cc.value,
           name: cc.value,
         })),
@@ -58,7 +59,7 @@ export function ComposeEmail() {
         replyTo: [
           {
             address: chosenAccount.emailAddress,
-            name: chosenAccount.name ?? "",
+            name: chosenAccount.name ?? '',
           },
         ],
         inReplyTo: undefined,
@@ -66,10 +67,10 @@ export function ComposeEmail() {
       }),
       {
         onSuccess() {
-          setOpen(false);
+          setOpen(false)
         },
-      }
-    );
+      },
+    )
   }
   return (
     <Drawer open={open} onOpenChange={setOpen}>
@@ -86,7 +87,7 @@ export function ComposeEmail() {
             setSubject={setSubject}
             toValue={toValue}
             ccValue={ccValue}
-            to={toValue.map((to) => to.value)}
+            to={toValue.map(to => to.value)}
             defaultToolBarExpanded={false}
             setCCValue={setCCValue}
             setToValue={setToValue}
@@ -97,5 +98,5 @@ export function ComposeEmail() {
         </div>
       </DrawerContent>
     </Drawer>
-  );
+  )
 }

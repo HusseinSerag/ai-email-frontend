@@ -1,6 +1,5 @@
-import { Bot } from "lucide-react";
+import { Button } from '@/components/ui/button'
 
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,23 +7,24 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog'
+import { Textarea } from '@/components/ui/textarea'
 
-import { useState } from "react";
-import { Textarea } from "@/components/ui/textarea";
+import { Bot } from 'lucide-react'
+import { useState } from 'react'
 
 interface AiComposeButtonProps {
-  isComposing: boolean;
-  onGenerate(token: string): Promise<void>;
+  isComposing: boolean
+  onGenerate: (token: string) => Promise<void>
 }
 export default function AiComposeButton({ onGenerate }: AiComposeButtonProps) {
-  const [open, setOpen] = useState(false);
-  const [prompt, setPrompt] = useState("");
+  const [open, setOpen] = useState(false)
+  const [prompt, setPrompt] = useState('')
 
   return (
     <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
-        <Button onClick={() => setOpen(true)} size={"icon"} variant={"outline"}>
+        <Button onClick={() => setOpen(true)} size="icon" variant="outline">
           <Bot className="size-5" />
         </Button>
       </DialogTrigger>
@@ -38,14 +38,14 @@ export default function AiComposeButton({ onGenerate }: AiComposeButtonProps) {
           <Textarea
             className="my-2"
             value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
+            onChange={e => setPrompt(e.target.value)}
             placeholder="Enter a prompt"
           />
           <Button
             onClick={() => {
-              onGenerate(prompt);
-              setOpen(false);
-              setPrompt("");
+              onGenerate(prompt)
+              setOpen(false)
+              setPrompt('')
             }}
           >
             Generate
@@ -53,5 +53,5 @@ export default function AiComposeButton({ onGenerate }: AiComposeButtonProps) {
         </DialogHeader>
       </DialogContent>
     </Dialog>
-  );
+  )
 }
