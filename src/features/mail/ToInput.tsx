@@ -19,9 +19,7 @@ export default function SelectInput({
   const { isPendingSuggestions, suggestions } = useSuggestions();
   const [input, setValue] = useState("");
   const options =
-    suggestions?.map((suggestion) =>
-      createOption(suggestion.address, suggestion.name ?? "")
-    ) ?? [];
+    suggestions?.map((suggestion) => createOption(suggestion.address)) ?? [];
 
   return (
     <div className="border w-full pl-2 rounded-md max-w-full flex items-center ">
@@ -67,7 +65,7 @@ export default function SelectInput({
   );
 }
 
-export function createOption(address: string, name: string) {
+export function createOption(address: string) {
   return {
     label: (
       <span className="flex items-center gap-2">
