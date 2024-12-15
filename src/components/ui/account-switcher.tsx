@@ -1,4 +1,4 @@
-import { useGetAuthUrl } from '@/hooks/useGetAuthUrl'
+import { useGetAuthUrl } from '@/features/dashboard/hooks/useGetAuthUrl'
 import { useMail } from '@/hooks/useMail'
 import { localStorageKeyAccountId } from '@/lib/globals'
 import { cn } from '@/lib/utils'

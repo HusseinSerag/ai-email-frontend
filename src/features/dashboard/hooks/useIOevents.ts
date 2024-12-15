@@ -5,7 +5,7 @@ import { MySocket } from '@/lib/socket'
 import { useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
-import { useToast } from './use-toast'
+import { useToast } from '../../../hooks/use-toast'
 
 export default function useIOevents() {
   const { toast } = useToast()

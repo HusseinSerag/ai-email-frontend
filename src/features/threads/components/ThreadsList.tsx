@@ -1,4 +1,3 @@
-import type { BadgeProps } from '@/components/ui/badge'
 import type { EmailThread } from '@/lib/types'
 import type { ReactNode } from 'react'
 import { Badge } from '@/components/ui/badge'
@@ -11,6 +10,7 @@ import { format, formatDistanceToNow } from 'date-fns'
 import DOMPurify from 'dompurify'
 import { Fragment } from 'react/jsx-runtime'
 import { useLocalStorage } from 'usehooks-ts'
+import { getBadgeVariantFromLabel } from '../util/getBageVariant'
 
 interface ThreadListProps {
   children?: ReactNode
@@ -138,13 +138,4 @@ export default function ThreadList({ children }: ThreadListProps) {
       {children}
     </div>
   )
-}
-
-function getBadgeVariantFromLabel(label: string): BadgeProps['variant'] {
-  if ('work'.includes(label.toLowerCase())) {
-    return 'default'
-  }
-  else {
-    return 'secondary'
-  }
 }

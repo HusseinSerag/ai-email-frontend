@@ -10,8 +10,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer'
+import { useEmailEditorStates } from '@/features/mail/hooks/useEmailEditorStates'
 import { toast } from '@/hooks/use-toast'
-import { useEmailEditorStates } from '@/hooks/useEmailEditorStates'
 import { useMail } from '@/hooks/useMail'
 import { createEmailFormData } from '@/lib/utils'
 import { useState } from 'react'

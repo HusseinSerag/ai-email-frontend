@@ -1,5 +1,6 @@
 import { LoadingSpinner } from '@/components/ui/spinner'
-import MailDashboard from '@/features/mail/MailDashboard'
+import { Dashboard } from '@/features/dashboard/components/Dashboard'
+import DashboardProvider from '@/features/dashboard/context/dashboard-context'
 import { useMail } from '@/hooks/useMail'
 
 export default function Mail() {
@@ -9,5 +10,9 @@ export default function Mail() {
       <LoadingSpinner outerClassName="h-full w-full flex items-center justify-center" />
     )
   }
-  return <MailDashboard defaultLayout={[20, 32, 48]} navCollapsedSize={4} />
+  return (
+    <DashboardProvider>
+      <Dashboard defaultLayout={[20, 32, 48]} navCollapsedSize={4} />
+    </DashboardProvider>
+  )
 }

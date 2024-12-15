@@ -15,9 +15,9 @@ import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { Bot, X } from 'lucide-react'
 import { useState } from 'react'
-import AiComposeButton from './ai-composeButton'
-import EditorMenuBar from './EditorMenuBar'
-import SelectInput from './ToInput'
+import AiComposeButton from '../ai-composeButton'
+import EditorMenuBar from '../EditorMenuBar'
+import SelectInput from '../ToInput'
 
 interface EmailEditorProps {
   subject: string

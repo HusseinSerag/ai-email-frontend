@@ -17,8 +17,8 @@ import {
   MoreVertical,
   Trash2Icon,
 } from 'lucide-react'
-import { EmailDisplay } from './EmailDisplay'
-import ReplyBox from './ReplyBox'
+import { EmailDisplay } from '../../mail/components/EmailDisplay'
+import ReplyBox from '../../mail/components/ReplyBox'
 
 export default function ThreadDisplay() {
   const { threadId, threads } = useMail()
