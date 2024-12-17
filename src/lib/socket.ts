@@ -3,7 +3,7 @@ import { io } from 'socket.io-client'
 
 export class MySocket {
   private constructor(token: string) {
-    MySocket.socket = io(import.meta.env.VITE_BACKEND_URL, {
+    MySocket.socket = io(import.meta.env.VITE_SOCKET_URL, {
       withCredentials: true,
       transports: ['websocket'],
       auth: {

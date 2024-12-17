@@ -1,6 +1,5 @@
 import type { ReplyToInformation } from '@/lib/types'
 
-// /thread/:id/:threadId
 import { useCustomAuth } from '@/hooks/useCustomAuth'
 
 import { useMail } from '@/hooks/useMail'

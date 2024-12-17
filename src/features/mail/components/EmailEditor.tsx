@@ -248,8 +248,8 @@ export default function EmailEditor({
           </span>
           <Button
             onClick={async () => {
-              editor.commands.clearContent()
               await handleSend(value, files)
+              editor.commands.clearContent()
             }}
             disabled={isSending || isLoading}
           >

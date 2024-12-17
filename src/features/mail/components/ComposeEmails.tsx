@@ -68,6 +68,9 @@ export function ComposeEmail() {
       }),
       {
         onSuccess() {
+          setCCValue([])
+          setToValue([])
+          setSubject('')
           setOpen(false)
         },
       },
