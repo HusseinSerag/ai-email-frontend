@@ -12,10 +12,13 @@ export function useGetAuthUrl() {
       const token = await getToken()
       setIsLoading(true)
       setError('')
-      const res = await createAxiosClient(token!).get<{
-        data: string
-      }>('api/email/auth/url')
-      window.location.href = res.data.data
+      const res = await createAxiosClient(token!).get<string>(
+        'api/email/auth/url',
+      )
+      window.location.replace(res.data)
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 2500)
     }
     catch (e) {
       setIsLoading(false)
