@@ -24,7 +24,7 @@ import {
   Strikethrough,
   Undo,
 } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 interface MenuItem {
   icon: ReactNode
@@ -217,38 +217,6 @@ function TipTapMenuBar({
     (MenuItemInput | MenuItemButton)[]
   >([])
   const containerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const resizeObserver = new ResizeObserver(() => {
-      if (!containerRef.current)
-        return
-
-      const containerWidth = containerRef.current.offsetWidth
-      const childrenWidths = Array.from(containerRef.current.children).map(
-        child => child.getBoundingClientRect().width,
-      )
-
-      let totalWidth = 0
-      const visible: (MenuItemInput | MenuItemButton)[] = []
-      const collapsed: (MenuItemInput | MenuItemButton)[] = []
-
-      menuItems.forEach((item, index) => {
-        if (index >= childrenWidths.length)
-          return // Prevent index overflow
-
-        if (totalWidth + childrenWidths[index] <= containerWidth) {
-          visible.push(item)
-          totalWidth += childrenWidths[index]
-        }
-        else {
-          collapsed.push(item)
-        }
-      })
-
-      setMenuItems(visible)
-      setCollapsedItems(collapsed)
-    })
-  }, [])
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const files = event.target.files

@@ -15,7 +15,7 @@ export default function Mail() {
     <>
       <Head title={document.title} description="" />
 
-      <Dashboard defaultLayout={[20, 32, 48]} navCollapsedSize={4} />
+      <Dashboard />
     </>
   )
 }
