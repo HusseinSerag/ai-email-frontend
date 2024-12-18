@@ -46,176 +46,172 @@ function TipTapMenuBar({
   editor: Editor
   addFile: (file: File) => void
 }) {
-  const [menuItems, setMenuItems] = useState<
-    (MenuItemInput | MenuItemButton)[]
-  >(() => {
-        return [
-          {
-            icon: <Bold className="size-4 text-secondary-foreground" />,
-            text: 'Bold',
-            props: {
-              onClick: () => editor.chain().focus().toggleBold().run(),
-              disabled: !editor.can().chain().focus().toggleBold().run(),
-              className: editor.isActive('bold') ? 'is-active' : '',
-            },
-            type: 'button',
-          },
-          {
-            icon: <Italic className="size-4 text-secondary-foreground" />,
-            text: 'Italic',
-            props: {
-              onClick: () => editor.chain().focus().toggleItalic().run(),
-              disabled: !editor.can().chain().focus().toggleItalic().run(),
-              className: editor.isActive('italic') ? 'is-active' : '',
-            },
-            type: 'button',
-          },
-          {
-            icon: <Strikethrough className="size-4 text-secondary-foreground" />,
-            text: 'Strikethrough',
-            props: {
-              onClick: () => editor.chain().focus().toggleStrike().run(),
-              disabled: !editor.can().chain().focus().toggleStrike().run(),
-              className: editor.isActive('strike') ? 'is-active' : '',
-            },
-            type: 'button',
-          },
-          {
-            icon: <Code className="size-4 text-secondary-foreground" />,
-            text: 'Code',
-            props: {
-              onClick: () => editor.chain().focus().toggleCode().run(),
-              disabled: !editor.can().chain().focus().toggleCode().run(),
-              className: editor.isActive('code') ? 'is-active' : '',
-            },
-            type: 'button',
-          },
-          {
-            icon: <Heading1 className="size-4 text-secondary-foreground" />,
-            text: 'Heading 1',
-            props: {
-              onClick: () =>
-                editor.chain().focus().toggleHeading({ level: 1 }).run(),
-              className: editor.isActive('heading', { level: 1 })
-                ? 'is-active'
-                : '',
-            },
-            type: 'button',
-          },
-          {
-            icon: <Heading2 className="size-4 text-secondary-foreground" />,
-            text: 'Heading 2',
-            props: {
-              onClick: () =>
-                editor.chain().focus().toggleHeading({ level: 2 }).run(),
-              className: editor.isActive('heading', { level: 2 })
-                ? 'is-active'
-                : '',
-            },
-            type: 'button',
-          },
+  const [menuItems] = useState<(MenuItemInput | MenuItemButton)[]>(() => {
+    return [
+      {
+        icon: <Bold className="size-4 text-secondary-foreground" />,
+        text: 'Bold',
+        props: {
+          onClick: () => editor.chain().focus().toggleBold().run(),
+          disabled: !editor.can().chain().focus().toggleBold().run(),
+          className: editor.isActive('bold') ? 'is-active' : '',
+        },
+        type: 'button',
+      },
+      {
+        icon: <Italic className="size-4 text-secondary-foreground" />,
+        text: 'Italic',
+        props: {
+          onClick: () => editor.chain().focus().toggleItalic().run(),
+          disabled: !editor.can().chain().focus().toggleItalic().run(),
+          className: editor.isActive('italic') ? 'is-active' : '',
+        },
+        type: 'button',
+      },
+      {
+        icon: <Strikethrough className="size-4 text-secondary-foreground" />,
+        text: 'Strikethrough',
+        props: {
+          onClick: () => editor.chain().focus().toggleStrike().run(),
+          disabled: !editor.can().chain().focus().toggleStrike().run(),
+          className: editor.isActive('strike') ? 'is-active' : '',
+        },
+        type: 'button',
+      },
+      {
+        icon: <Code className="size-4 text-secondary-foreground" />,
+        text: 'Code',
+        props: {
+          onClick: () => editor.chain().focus().toggleCode().run(),
+          disabled: !editor.can().chain().focus().toggleCode().run(),
+          className: editor.isActive('code') ? 'is-active' : '',
+        },
+        type: 'button',
+      },
+      {
+        icon: <Heading1 className="size-4 text-secondary-foreground" />,
+        text: 'Heading 1',
+        props: {
+          onClick: () =>
+            editor.chain().focus().toggleHeading({ level: 1 }).run(),
+          className: editor.isActive('heading', { level: 1 })
+            ? 'is-active'
+            : '',
+        },
+        type: 'button',
+      },
+      {
+        icon: <Heading2 className="size-4 text-secondary-foreground" />,
+        text: 'Heading 2',
+        props: {
+          onClick: () =>
+            editor.chain().focus().toggleHeading({ level: 2 }).run(),
+          className: editor.isActive('heading', { level: 2 })
+            ? 'is-active'
+            : '',
+        },
+        type: 'button',
+      },
 
-          {
-            icon: <Heading3 className="size-4 text-secondary-foreground" />,
-            text: 'Heading 3',
-            props: {
-              onClick: () =>
-                editor.chain().focus().toggleHeading({ level: 3 }).run(),
-              className: editor.isActive('heading', { level: 3 })
-                ? 'is-active'
-                : '',
-            },
-            type: 'button',
-          },
+      {
+        icon: <Heading3 className="size-4 text-secondary-foreground" />,
+        text: 'Heading 3',
+        props: {
+          onClick: () =>
+            editor.chain().focus().toggleHeading({ level: 3 }).run(),
+          className: editor.isActive('heading', { level: 3 })
+            ? 'is-active'
+            : '',
+        },
+        type: 'button',
+      },
 
-          {
-            icon: <Heading4 className="size-4 text-secondary-foreground" />,
-            text: 'Heading 4',
-            props: {
-              onClick: () =>
-                editor.chain().focus().toggleHeading({ level: 4 }).run(),
-              className: editor.isActive('heading', { level: 4 })
-                ? 'is-active'
-                : '',
-            },
-            type: 'button',
-          },
+      {
+        icon: <Heading4 className="size-4 text-secondary-foreground" />,
+        text: 'Heading 4',
+        props: {
+          onClick: () =>
+            editor.chain().focus().toggleHeading({ level: 4 }).run(),
+          className: editor.isActive('heading', { level: 4 })
+            ? 'is-active'
+            : '',
+        },
+        type: 'button',
+      },
 
-          {
-            icon: <Heading5 className="size-4 text-secondary-foreground" />,
-            text: 'Heading 5',
-            props: {
-              onClick: () =>
-                editor.chain().focus().toggleHeading({ level: 5 }).run(),
-              className: editor.isActive('heading', { level: 5 })
-                ? 'is-active'
-                : '',
-            },
-            type: 'button',
-          },
+      {
+        icon: <Heading5 className="size-4 text-secondary-foreground" />,
+        text: 'Heading 5',
+        props: {
+          onClick: () =>
+            editor.chain().focus().toggleHeading({ level: 5 }).run(),
+          className: editor.isActive('heading', { level: 5 })
+            ? 'is-active'
+            : '',
+        },
+        type: 'button',
+      },
 
-          {
-            icon: <List className="size-4 text-secondary-foreground" />,
-            text: 'Bullet List',
-            props: {
-              onClick: () => editor.chain().focus().toggleBulletList().run(),
-              className: editor.isActive('bulletList') ? 'is-active' : '',
-            },
-            type: 'button',
-          },
-          {
-            icon: <ListOrdered className="size-4 text-secondary-foreground" />,
-            text: 'Ordered List',
-            props: {
-              onClick: () => editor.chain().focus().toggleOrderedList().run(),
-              className: editor.isActive('orderedList') ? 'is-active' : '',
-            },
-            type: 'button',
-          },
-          {
-            icon: <Quote className="size-4 text-secondary-foreground" />,
-            text: 'Blockquote',
-            props: {
-              onClick: () => editor.chain().focus().toggleBlockquote().run(),
-              className: editor.isActive('blockquote') ? 'is-active' : '',
-            },
-            type: 'button',
-          },
-          {
-            icon: <Undo className="size-4 text-secondary-foreground" />,
-            text: 'Undo',
-            props: {
-              onClick: () => editor.chain().focus().undo().run(),
-              disabled: !editor.can().chain().focus().undo().run(),
-            },
-            type: 'button',
-          },
-          {
-            icon: <Redo className="size-4 text-secondary-foreground" />,
-            text: 'Redo',
-            props: {
-              onClick: () => editor.chain().focus().redo().run(),
-              disabled: !editor.can().chain().focus().redo().run(),
-            },
-            type: 'button',
-          },
-          {
-            icon: <Paperclip className="size-4 text-secondary-foreground" />,
-            text: 'Attach File',
-            props: {
-              multiple: true,
-              type: 'file',
-              className: 'hidden',
-              onChange: handleFileChange,
-            },
-            type: 'input',
-          },
-        ]
-      })
+      {
+        icon: <List className="size-4 text-secondary-foreground" />,
+        text: 'Bullet List',
+        props: {
+          onClick: () => editor.chain().focus().toggleBulletList().run(),
+          className: editor.isActive('bulletList') ? 'is-active' : '',
+        },
+        type: 'button',
+      },
+      {
+        icon: <ListOrdered className="size-4 text-secondary-foreground" />,
+        text: 'Ordered List',
+        props: {
+          onClick: () => editor.chain().focus().toggleOrderedList().run(),
+          className: editor.isActive('orderedList') ? 'is-active' : '',
+        },
+        type: 'button',
+      },
+      {
+        icon: <Quote className="size-4 text-secondary-foreground" />,
+        text: 'Blockquote',
+        props: {
+          onClick: () => editor.chain().focus().toggleBlockquote().run(),
+          className: editor.isActive('blockquote') ? 'is-active' : '',
+        },
+        type: 'button',
+      },
+      {
+        icon: <Undo className="size-4 text-secondary-foreground" />,
+        text: 'Undo',
+        props: {
+          onClick: () => editor.chain().focus().undo().run(),
+          disabled: !editor.can().chain().focus().undo().run(),
+        },
+        type: 'button',
+      },
+      {
+        icon: <Redo className="size-4 text-secondary-foreground" />,
+        text: 'Redo',
+        props: {
+          onClick: () => editor.chain().focus().redo().run(),
+          disabled: !editor.can().chain().focus().redo().run(),
+        },
+        type: 'button',
+      },
+      {
+        icon: <Paperclip className="size-4 text-secondary-foreground" />,
+        text: 'Attach File',
+        props: {
+          multiple: true,
+          type: 'file',
+          className: 'hidden',
+          onChange: handleFileChange,
+        },
+        type: 'input',
+      },
+    ]
+  })
 
-  const [collapsedItems, setCollapsedItems] = useState<
-    (MenuItemInput | MenuItemButton)[]
-  >([])
+  const [collapsedItems] = useState<(MenuItemInput | MenuItemButton)[]>([])
   const containerRef = useRef<HTMLDivElement>(null)
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
