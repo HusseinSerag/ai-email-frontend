@@ -18,6 +18,7 @@ export default function useAccountThreads() {
     isPending: isLoadingThreads,
     refetch: refetchThreads,
   } = useQuery({
+    retry: false,
     queryKey: ['threads', userId, accountId, tab, done],
 
     async queryFn() {

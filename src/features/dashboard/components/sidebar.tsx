@@ -36,7 +36,7 @@ export default function Sidebar({ isCollapsed }: SidebarProps) {
           label: count?.sent.toString(),
           icon: Send,
           variant: tab === 'sent' ? 'default' : 'ghost',
-          display: 'Draft',
+          display: 'Sent',
         },
       ]}
     />

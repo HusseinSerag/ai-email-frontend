@@ -252,9 +252,10 @@ export default function EmailEditor({
               for AI autocomplete
             </span>
             <Button
-              onClick={async () => {
-                await handleSend(value, files)
-                editor.commands.clearContent()
+              onClick={() => {
+                handleSend(value, files).then(() => {
+                  editor.commands.clearContent()
+                })
               }}
               disabled={isSending || isLoading}
             >

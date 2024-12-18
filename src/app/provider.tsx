@@ -4,19 +4,19 @@ import { ClerkProvider } from '@clerk/clerk-react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ErrorBoundary } from 'react-error-boundary'
+
 import { useNavigate } from 'react-router-dom'
-import { Toaster } from '../components/ui/toaster'
 
+import { Bounce, ToastContainer } from 'react-toastify'
 import { ThemeProvider } from '../context/themeProvider'
-
 import Kbar from '../features/kbar'
 import { useSetTitle } from '../hooks/useSetTitle'
+
 import Router from './router'
 import '@cyntler/react-doc-viewer/dist/index.css'
 
 const queryClient = new QueryClient()
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
-
 if (!PUBLISHABLE_KEY) {
   throw new Error('Missing Publishable Key')
 }
@@ -35,7 +35,7 @@ export default function Provider() {
         >
           <Component />
         </ClerkProvider>
-        <Toaster />
+
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ErrorBoundary>
@@ -44,11 +44,23 @@ export default function Provider() {
 
 function Component() {
   useSetTitle()
+
   return (
     <ThemeProvider>
       <Kbar>
         <Router />
       </Kbar>
+      <ToastContainer
+        closeOnClick
+        pauseOnFocusLoss={false}
+        draggable={true}
+        autoClose={2000}
+        position="bottom-left"
+        transition={Bounce}
+        toastClassName={"dark:bg-black dark:text-gray-200"}
+        stacked={false}
+        limit={5}
+      />
     </ThemeProvider>
   )
 }

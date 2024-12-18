@@ -12,6 +12,7 @@ import { useCurrentDone } from '@/hooks/useCurrentDone'
 import { useCurrentTab } from '@/hooks/useCurrentTab'
 import { useMail } from '@/hooks/useMail'
 import { isInitialized } from '@/lib/types'
+import { UserButton } from '@clerk/clerk-react'
 import { BotMessageSquare } from 'lucide-react'
 import useIOevents from '../hooks/useIOevents'
 import LoadingSyncing from './LoadingSyncing'
@@ -60,7 +61,8 @@ export default function ThreadListDashboard() {
         )}
       </ThreadList>
 
-      <div className="sticky  flex items-center justify-center mt-3 gap-4  bottom-0">
+      <div className="sticky bg-white dark:bg-black  flex items-center justify-center mt-3 gap-4  bottom-0">
+        <UserButton />
         <Button variant="outline">
           <BotMessageSquare className="size-4" />
         </Button>

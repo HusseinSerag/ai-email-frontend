@@ -1,5 +1,6 @@
 import type { Email } from '@/lib/types'
 import { Button } from '@/components/ui/button'
+import DocumentViewer from '@/components/ui/DocumentViewer'
 import { useMail } from '@/hooks/useMail'
 import { cn } from '@/lib/utils'
 import { formatDistanceToNow } from 'date-fns'
@@ -72,9 +73,15 @@ export function EmailDisplay({ email, openReply, isLast }: DisplayEmailsProps) {
                   link.click()
                   document.body.removeChild(link)
                 }}
-                className="py-1 px-2 bg-gray-200 hover:scale-105 cursor-pointer text-sm"
+                className="py-1 px-2 bg-gray-200 hover:scale-105 cursor-pointer w-[50px] text-sm"
               >
-                {attachment.name}
+                <DocumentViewer
+                  doc={{
+                    uri: attachment.contentLocation ?? '',
+                    fileType: attachment.mimeType,
+                  }}
+                  className="h-screen"
+                />
               </div>
             ))}
           </div>

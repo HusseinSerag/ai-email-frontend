@@ -1,15 +1,10 @@
 import { Separator } from '@/components/ui/separator'
-import {
-  Sidebar,
-  SidebarFooter,
-  SidebarHeader,
-} from '@/components/ui/sidebar'
+import { Sidebar, SidebarFooter, SidebarHeader } from '@/components/ui/sidebar'
 import { ModeToggle } from '@/components/ui/themeToggle'
 import AccountSwitcher from '@/features/dashboard/components/account-switcher'
 import SidebarC from '@/features/dashboard/components/sidebar'
 
 import { cn } from '@/lib/utils'
-import { UserButton } from '@clerk/clerk-react'
 
 export default function SidebarDashboard() {
   return (
@@ -25,7 +20,6 @@ export default function SidebarDashboard() {
         <div className="flex-1">d</div>
         <SidebarFooter>
           <div className={cn('flex items-center gap-2 px-2 py-1', {})}>
-            <UserButton />
             <ModeToggle />
           </div>
         </SidebarFooter>

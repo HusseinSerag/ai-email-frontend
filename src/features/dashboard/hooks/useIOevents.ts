@@ -6,15 +6,15 @@ import { MySocket } from '@/lib/socket'
 import { useQueryClient } from '@tanstack/react-query'
 
 import { useEffect, useState } from 'react'
-import { useToast } from '../../../hooks/use-toast'
+import { toast } from 'react-toastify'
 
 export default function useIOevents() {
-  const { toast } = useToast()
   const { accounts, refetchThreads } = useMail()
   const { value: accountId } = useCurrentAccount()
   const chosenAcc = accounts?.find(acc => acc.id === accountId)
   const { userId } = useCustomAuth()
   const queryClient = useQueryClient()
+
   const [progress, setProgress] = useState<{
     done: number
     total: number
@@ -35,9 +35,7 @@ export default function useIOevents() {
             acc => acc.id === values.accountId,
           )?.emailAddress
           if (emailAddress) {
-            toast({
-              description: `Syncing for ${emailAddress} is done`,
-            })
+            toast(`Syncing for ${emailAddress} is done`)
           }
         }
         setProgress({
@@ -66,10 +64,7 @@ export default function useIOevents() {
           )?.emailAddress
 
           if (emailAddress) {
-            toast({
-              description: `${values.done} out of ${values.total} emails synced`,
-              title: `Syncing for ${emailAddress} in progress`,
-            })
+            toast(`Syncing for ${emailAddress} in progress`)
           }
         }
         setProgress({
