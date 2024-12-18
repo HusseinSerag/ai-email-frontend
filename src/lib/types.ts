@@ -74,6 +74,7 @@ export interface ReplyToInformation {
   cc: EmailParticipant[]
   id: string
   from: { name: string, address: string }
+  references: string
 }
 
 export interface SendEmailData {

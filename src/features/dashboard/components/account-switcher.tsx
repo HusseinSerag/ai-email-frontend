@@ -42,7 +42,10 @@ export default function AccountSwitcher({ isCollapsed }: AccountSwitcherProps) {
       >
         <SelectValue placeholder="Select an account">
           <span className={`${!isCollapsed && 'hidden'}`}>
-            {accounts?.find(account => account.id === value)?.emailAddress[0]}
+            {accounts
+              ?.find(account => account.id === value)
+              ?.emailAddress[0]
+              .toLocaleUpperCase()}
           </span>
           <span className={`${isCollapsed && 'hidden'} ml-2`}>
             {accounts?.find(account => account.id === value)?.emailAddress}

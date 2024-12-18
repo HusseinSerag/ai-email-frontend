@@ -98,6 +98,7 @@ export function ComposeEmail() {
             handleSend={handleSend}
             isSending={isSendingEmail}
             takeThread={false}
+            isEditorOpened
           />
         </div>
       </DrawerContent>

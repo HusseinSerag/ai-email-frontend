@@ -36,7 +36,7 @@ export default function ThreadList({ children }: ThreadListProps) {
   const entries = Array.from(groupedThreads.entries())
 
   return (
-    <div className="max-w-full overflow-x-hidden overflow-y-auto max-h-[calc(100vh-120px)]">
+    <div className="max-w-full overflow-y-auto max-h-[calc(100vh-120px)]">
       <div className="flex  flex-col gap-2 p-4 pt-0">
         {groupedThreads.size === 0
           ? (

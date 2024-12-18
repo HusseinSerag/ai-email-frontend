@@ -1,7 +1,7 @@
 import { Head } from '@/app/seo/head'
 import { LoadingSpinner } from '@/components/ui/spinner'
 import { Dashboard } from '@/features/dashboard/components/Dashboard'
-import DashboardProvider from '@/features/dashboard/context/dashboard-context'
+
 import { useMail } from '@/hooks/useMail'
 
 export default function Mail() {
@@ -14,9 +14,8 @@ export default function Mail() {
   return (
     <>
       <Head title={document.title} description="" />
-      <DashboardProvider>
-        <Dashboard defaultLayout={[20, 32, 48]} navCollapsedSize={4} />
-      </DashboardProvider>
+
+      <Dashboard defaultLayout={[20, 32, 48]} navCollapsedSize={4} />
     </>
   )
 }

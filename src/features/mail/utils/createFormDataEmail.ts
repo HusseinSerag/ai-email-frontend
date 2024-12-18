@@ -1,7 +1,18 @@
 import type { SendEmailData } from '@/lib/types'
 
 export function createEmailFormData(emailData: SendEmailData): FormData {
-  const { body, from, to, cc, subject, replyTo, inReplyTo, files } = emailData
+  const {
+    body,
+    from,
+    to,
+    cc,
+    subject,
+    replyTo,
+    inReplyTo,
+    files,
+    references,
+    threadId,
+  } = emailData
   const formData = new FormData()
 
   // Add plain fields
@@ -15,6 +26,10 @@ export function createEmailFormData(emailData: SendEmailData): FormData {
     formData.append('replyTo', JSON.stringify(replyTo))
   if (inReplyTo)
     formData.append('inReplyTo', inReplyTo) // Handle undefined inReplyTo
+  if (references)
+    formData.append('references', references)
+  if (threadId)
+    formData.append('threadId', threadId)
   // Add files
   if (files) {
     files.forEach((file) => {

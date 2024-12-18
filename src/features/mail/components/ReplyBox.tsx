@@ -9,16 +9,27 @@ import { useMail } from '@/hooks/useMail'
 import { createEmailFormData } from '../utils/createFormDataEmail'
 import EmailEditor from './EmailEditor'
 
-export default function ReplyBox() {
+interface ReplyBoxProps {
+  isEditorOpened?: boolean
+}
+export default function ReplyBox({ isEditorOpened }: ReplyBoxProps) {
   const { details } = useReplyToInfo()
 
-  return <Component key={details?.id ?? ''} details={details} />
+  return (
+    <Component
+      isEditorOpened={isEditorOpened}
+      key={details?.id ?? ''}
+      details={details}
+    />
+  )
 }
 
 function Component({
   details,
+  isEditorOpened,
 }: {
   details: ReplyToInformation | undefined | null
+  isEditorOpened?: boolean
 }) {
   const { isSendingEmail, sendEmail } = useSendEmail()
   const { threadId } = useMail()
@@ -33,6 +44,10 @@ function Component({
       })
       return
     }
+
+    const references = details.references
+      ? `${details.references} ${details.id}`
+      : details.id
 
     sendEmail(
       createEmailFormData({
@@ -50,6 +65,8 @@ function Component({
         })),
         inReplyTo: details.id,
         files: file,
+        replyTo: [details.from],
+        references,
       }),
     )
   }
@@ -65,6 +82,7 @@ function Component({
       setToValue={setToValue}
       handleSend={handleSend}
       isSending={isSendingEmail}
+      isEditorOpened={isEditorOpened}
     />
   )
 }

@@ -1,9 +1,9 @@
+import { Nav } from '@/components/ui/nav'
+
 import { useCurrentTab } from '@/hooks/useCurrentTab'
 
 import { useMail } from '@/hooks/useMail'
-
 import { File, Inbox, Send } from 'lucide-react'
-import { Nav } from '../../../components/ui/nav'
 
 interface SidebarProps {
   isCollapsed: boolean

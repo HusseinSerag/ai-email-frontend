@@ -1,60 +1,50 @@
-import SidebarDashboard from '@/features/dashboard/components/sidebarDashboard'
+import { Separator } from '@/components/ui/separator'
+
+import { SidebarProvider } from '@/components/ui/sidebar'
 import ThreadListDashboard from '@/features/dashboard/components/threadListDashboard'
-import { useDashboard } from '@/features/dashboard/context/dashboard-context'
 
+import useKbarMail from '@/features/kbar/useKbarMailPage'
 import ThreadDisplay from '@/features/threads/components/ThreadDisplay'
+
+import { useMail } from '@/hooks/useMail'
 import { cn } from '@/lib/utils'
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from '../../../components/ui/resizable'
 import { TooltipProvider } from '../../../components/ui/tooltip'
+import SidebarDashboard from './sidebarDashboard'
 
-interface DashboardProps {
-  defaultLayout?: [number, number, number]
-  navCollapsedSize: number
-}
-export function Dashboard({
-  defaultLayout = [20, 32, 48],
-  navCollapsedSize,
-}: DashboardProps) {
-  const { setIsCollapsed } = useDashboard()
+export function Dashboard() {
+  const { threadId } = useMail()
+  useKbarMail()
+
   return (
-    <TooltipProvider delayDuration={0}>
-      <ResizablePanelGroup
-        direction="horizontal"
-        onLayout={() => {}}
-        className="items-stretch h-full"
-      >
-        <ResizablePanel
-          defaultSize={defaultLayout[0]}
-          collapsedSize={navCollapsedSize}
-          collapsible={true}
-          minSize={15}
-          maxSize={20}
-          onCollapse={() => {
-            setIsCollapsed(true)
-          }}
-          onResize={() => {
-            setIsCollapsed(false)
-          }}
-          className={cn({
-            isCollapsed: 'min-w-[50px] transition-all duration-300 ease-in-out',
-          })}
-        >
-          <SidebarDashboard />
-        </ResizablePanel>
-        <ResizableHandle withHandle />
+    <SidebarProvider>
+      <SidebarDashboard />
 
-        <ResizablePanel minSize={30} defaultSize={defaultLayout[1]}>
-          <ThreadListDashboard />
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={defaultLayout[2]} minSize={30}>
-          <ThreadDisplay />
-        </ResizablePanel>
-      </ResizablePanelGroup>
-    </TooltipProvider>
+      <TooltipProvider>
+        <div className="relative w-full h-full">
+          <div
+            className={cn(
+              'h-full flex-1 relative flex w-full md:grid md:grid-cols-3  ',
+            )}
+          >
+            <div
+              className={cn(
+                `flex-1 md:flex h-full w-full col-span-1 hidden ${!threadId ? 'block' : 'hidden'} `,
+              )}
+            >
+              <ThreadListDashboard />
+            </div>
+
+            <div
+              className={cn(
+                `flex-1 md:flex min-w-full hidden col-span-2 ${threadId ? 'block' : 'hidden'}`,
+              )}
+            >
+              <Separator className="md:block hidden" orientation="vertical" />
+              <ThreadDisplay />
+            </div>
+          </div>
+        </div>
+      </TooltipProvider>
+    </SidebarProvider>
   )
 }
