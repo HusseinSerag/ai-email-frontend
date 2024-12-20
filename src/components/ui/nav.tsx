@@ -14,6 +14,7 @@ import {
 
 import { useCurrentTab } from '@/hooks/useCurrentTab'
 import { cn } from '@/lib/utils'
+import { useSearchParams } from 'react-router-dom'
 
 interface NavProps {
   isCollapsed: boolean
@@ -28,9 +29,14 @@ interface NavProps {
 
 export function Nav({ links, isCollapsed }: NavProps) {
   const { setTab } = useCurrentTab()
-
+  const [searchParams, setSearchParams] = useSearchParams()
   return (
     <div
+      onClick={() => {
+        searchParams.delete('page')
+        searchParams.delete('offset')
+        setSearchParams(searchParams)
+      }}
       data-collapsed={isCollapsed}
       className="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2"
     >

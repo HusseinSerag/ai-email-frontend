@@ -2,13 +2,14 @@ import { Input } from '@/components/ui/input'
 import { useMail } from '@/hooks/useMail'
 import { atom, useAtom } from 'jotai'
 import { Loader2, Search, X } from 'lucide-react'
+import PaginationThreads from './PaginationThreads'
 
 export const searchValueAtom = atom('')
 export const isSearchAtom = atom(false)
 export default function SearchBar() {
   const [searchValue, setSearchValue] = useAtom(searchValueAtom)
   const [_, setIsSearching] = useAtom(isSearchAtom)
-  const { isLoadingThreads } = useMail()
+  const { isLoadingThreads, meta } = useMail()
 
   return (
     <div className="relative px-4 py-2">
@@ -38,6 +39,7 @@ export default function SearchBar() {
           <X className="size-4 hover:text-gray-800 text-gray-400" />
         </button>
       </div>
+      {meta && meta.totalPages > 0 && <PaginationThreads />}
     </div>
   )
 }

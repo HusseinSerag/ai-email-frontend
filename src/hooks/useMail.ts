@@ -12,7 +12,11 @@ export const threadIdAtom = atom<string | null>(null)
 export function useMail() {
   const { accounts, isPendingAccounts } = useUserAccounts()
   const { isPendingCount, count } = useThreadCount()
-  const { threads, isLoadingThreads, refetchThreads } = useAccountThreads()
+  const {
+    threads: info,
+    isLoadingThreads,
+    refetchThreads,
+  } = useAccountThreads()
   const { value: accountId } = useCurrentAccount()
   const chosenAccount = accounts?.find(acc => acc.id === accountId)
   const [threadIdChosen, setThreadId] = useAtom(threadIdAtom)
@@ -25,7 +29,8 @@ export function useMail() {
     accounts: accounts!,
     isLoading,
     count,
-    threads,
+    threads: info?.data,
+    meta: info?.meta,
     isLoadingThreads,
     chosenAccount,
     threadId,
