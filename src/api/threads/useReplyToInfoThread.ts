@@ -12,7 +12,7 @@ export default function useReplyToInfo() {
 
   const accountId = chosenAccount?.id
   const { data: details, isPending: isLoadingDetails } = useQuery({
-    queryKey: ['threads', userId, accountId, threadId],
+    queryKey: ['threads-info', userId, accountId, threadId],
 
     async queryFn() {
       try {

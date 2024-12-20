@@ -1,11 +1,8 @@
-'use client'
-
 import type {
   ToastActionElement,
   ToastProps,
 } from '@/components/ui/toast'
 
-// Inspired by react-hot-toast library
 import * as React from 'react'
 
 const TOAST_LIMIT = 1

@@ -1,19 +1,19 @@
-import { useGetAuthUrl } from '@/features/dashboard/hooks/useGetAuthUrl'
-import { useCurrentAccount } from '@/hooks/useCurrentAccount'
-
-import { useMail } from '@/hooks/useMail'
-
-import { cn } from '@/lib/utils'
-
-import { Plus, RotateCcw } from 'lucide-react'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../../../components/ui/select'
-import { LoadingSpinner } from '../../../components/ui/spinner'
+} from '@/components/ui/select'
+import { LoadingSpinner } from '@/components/ui/spinner'
+
+import { useGetAuthUrl } from '@/features/dashboard/hooks/useGetAuthUrl'
+
+import { useCurrentAccount } from '@/hooks/useCurrentAccount'
+
+import { useMail } from '@/hooks/useMail'
+import { cn } from '@/lib/utils'
+import { Plus, RotateCcw } from 'lucide-react'
 
 interface AccountSwitcherProps {
   isCollapsed: boolean

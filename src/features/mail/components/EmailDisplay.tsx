@@ -54,7 +54,7 @@ export function EmailDisplay({ email, openReply, isLast }: DisplayEmailsProps) {
         html={email.body ?? email.bodySnippet ?? ''}
       />
 
-      {email.attachments.length > 0 && (
+      {email?.attachments?.length > 0 && (
         <>
           <div className="h-4"></div>
           <div className="flex flex-wrap gap-1">
@@ -73,15 +73,18 @@ export function EmailDisplay({ email, openReply, isLast }: DisplayEmailsProps) {
                   link.click()
                   document.body.removeChild(link)
                 }}
-                className="py-1 px-2 bg-gray-200 hover:scale-105 cursor-pointer w-[50px] text-sm"
+                className="py-1 px-2  items-end flex  overflow-hidden bg-gray-200 hover:scale-105 cursor-pointer  text-sm"
               >
-                <DocumentViewer
-                  doc={{
-                    uri: attachment.contentLocation ?? '',
-                    fileType: attachment.mimeType,
-                  }}
-                  className="h-screen"
-                />
+                <div className="hidden">
+                  <DocumentViewer
+                    doc={{
+                      uri: attachment.contentLocation ?? '',
+                      fileType: attachment.mimeType,
+                    }}
+                    className="hidden"
+                  />
+                </div>
+                <div className="font-semibold text-xs">{attachment.name}</div>
               </div>
             ))}
           </div>

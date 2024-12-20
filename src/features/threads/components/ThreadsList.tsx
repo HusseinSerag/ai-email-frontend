@@ -2,15 +2,18 @@ import type { EmailThread } from '@/lib/types'
 import type { ReactNode } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { LoadingSpinner } from '@/components/ui/spinner'
+import { SearchThreadAtom } from '@/features/dashboard/components/SearchDisplay'
+
 import { useCurrentTab } from '@/hooks/useCurrentTab'
-
 import { useMail } from '@/hooks/useMail'
+
 import { cn } from '@/lib/utils'
-
 import { format, formatDistanceToNow } from 'date-fns'
-import DOMPurify from 'dompurify'
 
+import DOMPurify from 'dompurify'
+import { useAtom } from 'jotai'
 import { Fragment } from 'react/jsx-runtime'
+
 import { getBadgeVariantFromLabel } from '../util/getBageVariant'
 
 interface ThreadListProps {
@@ -19,6 +22,7 @@ interface ThreadListProps {
 export default function ThreadList({ children }: ThreadListProps) {
   const { threads, isLoadingThreads, setThreadId, threadId } = useMail()
   const { tab } = useCurrentTab()
+  const [_, setSearchId] = useAtom(SearchThreadAtom)
 
   if (isLoadingThreads) {
     return (
@@ -36,7 +40,7 @@ export default function ThreadList({ children }: ThreadListProps) {
   const entries = Array.from(groupedThreads.entries())
 
   return (
-    <div className="max-w-full overflow-y-auto max-h-[calc(100vh-120px)]">
+    <div className="max-w-full pb-4 overflow-y-auto max-h-[calc(100vh-120px)]">
       <div className="flex  flex-col gap-2 p-4 pt-0">
         {groupedThreads.size === 0
           ? (
@@ -58,6 +62,7 @@ export default function ThreadList({ children }: ThreadListProps) {
                             setThreadId(prev =>
                               prev === thread.id ? '' : thread.id,
                             )
+                            setSearchId('')
                           }}
                           key={thread.id}
                           className={cn(
@@ -70,7 +75,7 @@ export default function ThreadList({ children }: ThreadListProps) {
                           <div className="flex flex-col w-full gap-2">
                             <div className="flex items-center">
                               <div className="flex items-center gap-2">
-                                <div className="font-semibold">
+                                <div className="font-semibold text-[12px] md:text-base">
                                   {tab === 'inbox'
                                   && (thread.emails.at(-1)?.from?.name
                                     || thread.emails.at(-1)?.from?.address)}
@@ -82,18 +87,18 @@ export default function ThreadList({ children }: ThreadListProps) {
                         }`}
                                 </div>
                               </div>
-                              <div
-                                className={cn(
-                                  'ml-auto text-muted-foreground font-medium text-xs',
-                                )}
-                              >
-                                {formatDistanceToNow(
-                                  thread.emails.at(-1)?.sentAt ?? new Date(),
-                                  {
-                                    addSuffix: true,
-                                  },
-                                )}
-                              </div>
+                            </div>
+                            <div
+                              className={cn(
+                                'text-muted-foreground font-medium text-xs',
+                              )}
+                            >
+                              {formatDistanceToNow(
+                                thread.emails.at(-1)?.sentAt ?? new Date(),
+                                {
+                                  addSuffix: true,
+                                },
+                              )}
                             </div>
                             <div className="text-sm font-semibold">
                               {thread.subject}

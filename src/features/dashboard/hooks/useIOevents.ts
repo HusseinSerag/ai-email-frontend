@@ -22,6 +22,7 @@ export default function useIOevents() {
     done: 0,
     total: 0,
   })
+
   useEffect(() => {
     const socket = MySocket.getSocket(userId!)
     socket.addListener(
@@ -50,6 +51,7 @@ export default function useIOevents() {
         })
       },
     )
+
     socket.addListener(
       'sync-progress',
       async (values: {
@@ -62,10 +64,6 @@ export default function useIOevents() {
           const emailAddress = accounts?.find(
             acc => acc.id === values.accountId,
           )?.emailAddress
-
-          if (emailAddress) {
-            toast(`Syncing for ${emailAddress} in progress`)
-          }
         }
         setProgress({
           done: values.done,

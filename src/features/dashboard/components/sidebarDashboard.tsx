@@ -1,7 +1,7 @@
 import { Separator } from '@/components/ui/separator'
 import { Sidebar, SidebarFooter, SidebarHeader } from '@/components/ui/sidebar'
 import { ModeToggle } from '@/components/ui/themeToggle'
-import AccountSwitcher from '@/features/dashboard/components/account-switcher'
+import AccountSwitcher from '@/features/dashboard/components/AccountSwitcher'
 import SidebarC from '@/features/dashboard/components/sidebar'
 
 import { cn } from '@/lib/utils'

@@ -13,22 +13,26 @@ import { useCurrentTab } from '@/hooks/useCurrentTab'
 import { useMail } from '@/hooks/useMail'
 import { isInitialized } from '@/lib/types'
 import { UserButton } from '@clerk/clerk-react'
+import { useAtom } from 'jotai'
 import { BotMessageSquare } from 'lucide-react'
 import useIOevents from '../hooks/useIOevents'
 import LoadingSyncing from './LoadingSyncing'
+import SearchBar, { searchValueAtom } from './Searchbar'
+import SearchDisplay from './SearchDisplay'
 
 export default function ThreadListDashboard() {
   const { progress } = useIOevents()
   const { chosenAccount } = useMail()
   const { done, setDone } = useCurrentDone()
   const { tab } = useCurrentTab()
+  const [searchValue] = useAtom(searchValueAtom)
   return (
     <Tabs
       value={done}
       onValueChange={(e) => {
         setDone(e as Done)
       }}
-      className=" h-full w-full relative overflow-y-hidden"
+      className=" h-full max-h-screen w-full relative overflow-y-hidden"
       defaultValue="inbox"
     >
       <div className="flex items-center px-4 py-2">
@@ -52,16 +56,23 @@ export default function ThreadListDashboard() {
         </TabsList>
       </div>
       <Separator />
-      {/* search bar */}
 
-      <ThreadList>
-        {chosenAccount
-        && chosenAccount.isSyncedInitially === isInitialized.start && (
-          <LoadingSyncing progress={progress} />
-        )}
-      </ThreadList>
+      <SearchBar />
+      {searchValue && (
+        <div className="md:hidden block">
+          <SearchDisplay />
+        </div>
+      )}
+      <div className={`${searchValue ? 'hidden md:block' : 'block'}`}>
+        <ThreadList>
+          {chosenAccount
+          && chosenAccount.isSyncedInitially === isInitialized.start && (
+            <LoadingSyncing progress={progress} />
+          )}
+        </ThreadList>
+      </div>
 
-      <div className="sticky bg-white dark:bg-black  flex items-center justify-center mt-3 gap-4  bottom-0">
+      <div className="sticky py-1 bg-white dark:bg-black  flex items-center justify-center mt-3 gap-4  bottom-0">
         <UserButton />
         <Button variant="outline">
           <BotMessageSquare className="size-4" />

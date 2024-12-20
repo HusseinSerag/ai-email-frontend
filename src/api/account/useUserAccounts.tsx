@@ -7,6 +7,7 @@ export default function useUserAccounts() {
   const { userId, getToken } = useCustomAuth()
   const { data: accounts, isPending: isPendingAccounts } = useQuery({
     queryKey: ['accounts', userId],
+
     async queryFn() {
       try {
         if (!userId)
