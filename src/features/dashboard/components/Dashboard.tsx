@@ -23,7 +23,7 @@ export function Dashboard() {
         <div className="relative w-full h-full">
           <div
             className={cn(
-              'h-full flex-1 relative flex w-full md:grid md:grid-cols-3  ',
+              'h-full flex-1 overflow-hidden relative flex w-full md:grid md:grid-cols-3  ',
             )}
           >
             <div

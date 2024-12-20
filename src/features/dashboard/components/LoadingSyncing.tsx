@@ -8,8 +8,8 @@ interface LoadingSyncingProps {
 }
 export default function LoadingSyncing({ progress }: LoadingSyncingProps) {
   return (
-    <div className="relative h-full">
-      <div className="flex flex-col gap-2 h-full items-center justify-center">
+    <div className="relative ">
+      <div className="flex flex-col gap-2  items-center justify-center">
         <div className="text-sm font-semibold">
           Syncing emails into database
         </div>

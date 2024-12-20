@@ -40,8 +40,8 @@ export default function ThreadList({ children }: ThreadListProps) {
   const entries = Array.from(groupedThreads.entries())
 
   return (
-    <div className="max-w-full pb-4 overflow-y-auto max-h-[calc(100vh-120px)]">
-      <div className="flex  flex-col gap-2 p-4 pt-0">
+    <div className="max-w-full pb-4">
+      <div className="flex flex-col gap-2 p-4 pt-0">
         {groupedThreads.size === 0
           ? (
               <div className="p-8 text-center text-muted-foreground">
