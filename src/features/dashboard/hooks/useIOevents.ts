@@ -60,11 +60,6 @@ export default function useIOevents() {
         status: 'sync-progress'
         accountId: string
       }) => {
-        if (values.accountId !== chosenAcc?.id) {
-          const emailAddress = accounts?.find(
-            acc => acc.id === values.accountId,
-          )?.emailAddress
-        }
         setProgress({
           done: values.done,
           total: values.total,

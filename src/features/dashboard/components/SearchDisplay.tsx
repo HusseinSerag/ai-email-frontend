@@ -10,8 +10,8 @@ export default function SearchDisplay() {
   const [searchValue, setSearchValue] = useAtom(searchValueAtom)
   const { hits, isLoadingHits } = useSearchThreads()
   const { setThreadId } = useMail()
-  const [searchId, setSearchId] = useAtom(SearchThreadAtom)
-  const [isSearching, setIsSearching] = useAtom(isSearchAtom)
+  const [__, setSearchId] = useAtom(SearchThreadAtom)
+  const [_, setIsSearching] = useAtom(isSearchAtom)
 
   return (
     <div className="p-4 max-h-[70vh] md:max-h-[calc(100vh-120px)] overflow-y-auto">

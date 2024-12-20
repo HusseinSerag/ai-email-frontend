@@ -10,10 +10,7 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { LoadingSpinner } from '@/components/ui/spinner'
 
-import {
-  isSearchAtom,
-  searchValueAtom,
-} from '@/features/dashboard/components/Searchbar'
+import { isSearchAtom } from '@/features/dashboard/components/Searchbar'
 import SearchDisplay, {
   SearchThreadAtom,
 } from '@/features/dashboard/components/SearchDisplay'
@@ -36,7 +33,7 @@ export default function ThreadDisplay() {
   const { threadId, threads, setThreadId } = useMail()
   const [openReplyBox, setOpenReplyBox] = useState(false)
   const [isSearching] = useAtom(isSearchAtom)
-  const [searchValue] = useAtom(searchValueAtom)
+
   const [searchId, setSearchId] = useAtom(SearchThreadAtom)
   useEffect(() => {
     setOpenReplyBox(false)

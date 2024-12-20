@@ -7,7 +7,7 @@ export const searchValueAtom = atom('')
 export const isSearchAtom = atom(false)
 export default function SearchBar() {
   const [searchValue, setSearchValue] = useAtom(searchValueAtom)
-  const [isSearching, setIsSearching] = useAtom(isSearchAtom)
+  const [_, setIsSearching] = useAtom(isSearchAtom)
   const { isLoadingThreads } = useMail()
 
   return (
