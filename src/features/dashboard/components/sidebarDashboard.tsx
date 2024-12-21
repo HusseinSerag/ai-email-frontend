@@ -16,8 +16,10 @@ export default function SidebarDashboard() {
           </div>
         </SidebarHeader>
         <Separator />
-        <SidebarC isCollapsed={false} />
-        <div className="flex-1">d</div>
+        <div className="flex-1">
+          <SidebarC isCollapsed={false} />
+        </div>
+
         <SidebarFooter>
           <div className={cn('flex items-center gap-2 px-2 py-1', {})}>
             <ModeToggle />
