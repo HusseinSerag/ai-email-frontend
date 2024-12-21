@@ -72,19 +72,21 @@ export default function ThreadList({ children }: ThreadListProps) {
                             },
                           )}
                         >
-                          <div className="flex flex-col w-full gap-2">
+                          <div className="flex flex-col overflow-hidden text-ellipsis w-full gap-2">
                             <div className="flex items-center">
                               <div className="flex items-center gap-2">
-                                <div className="font-semibold text-[12px] md:text-base">
+                                <div className="font-semibold  text-[12px] md:text-base">
                                   {tab === 'inbox'
                                   && (thread.emails.at(-1)?.from?.name
                                     || thread.emails.at(-1)?.from?.address)}
-                                  {tab === 'sent'
-                                  && `To: 
-                                ${
-                        thread.emails.at(-1)?.to.at(-1)?.name
-                        || thread.emails.at(-1)?.to.at(-1)?.address
-                        }`}
+                                  {tab === 'sent' && (
+                                    <div className="w-full text-[14px]">
+                                      {`To: ${
+                                        thread.emails.at(-1)?.to.at(-1)?.name
+                                        || thread.emails.at(-1)?.to.at(-1)?.address
+                                      }`}
+                                    </div>
+                                  )}
                                 </div>
                               </div>
                             </div>

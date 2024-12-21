@@ -45,7 +45,9 @@ export default function PaginationThreads() {
                 setSearchParams(searchParams)
               }}
             >
-              <PaginationLink className={`${page === i && 'bg-gray-200'}`}>
+              <PaginationLink
+                className={`${page === i && 'bg-gray-200 dark:bg-gray-600'}`}
+              >
                 {i + 1}
               </PaginationLink>
             </PaginationItem>

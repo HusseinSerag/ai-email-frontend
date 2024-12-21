@@ -1,3 +1,5 @@
+import type { Message } from '@/features/dashboard/hooks/useChat'
+
 export async function generateEmail(
   { context, prompt }: { context: string, prompt: string },
   getToken: () => Promise<string | null>,
@@ -15,6 +17,33 @@ export async function generateEmail(
         body: JSON.stringify({
           context,
           prompt,
+        }),
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+      },
+    )
+    return response
+  }
+  catch (e) {
+    throw e
+  }
+}
+
+export async function generateChat(
+  token: string,
+  message: Message[],
+  accountId: string,
+) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/ai/chat`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          messages: message,
+          accountId,
         }),
         headers: {
           'Authorization': `Bearer ${token}`,

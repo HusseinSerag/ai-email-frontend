@@ -11,7 +11,7 @@ export function Head({ title = '', description = '' }: HeadProps = {}) {
   return (
     <Helmet
       helmetData={helmetData}
-      title={title ? `${title} | Email AI` : undefined}
+      title={title ? `${title}` : ' Email AI '}
       defaultTitle="Email AI"
     >
       <meta name="description" content={description} />

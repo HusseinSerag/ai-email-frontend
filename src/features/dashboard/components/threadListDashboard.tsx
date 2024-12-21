@@ -1,5 +1,5 @@
 import type { Done } from '@/lib/globals'
-import { Button } from '@/components/ui/button'
+
 import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 
@@ -14,10 +14,12 @@ import { useMail } from '@/hooks/useMail'
 import { isInitialized } from '@/lib/types'
 import { UserButton } from '@clerk/clerk-react'
 import { useAtom } from 'jotai'
-import { BotMessageSquare } from 'lucide-react'
+
 import useIOevents from '../hooks/useIOevents'
+import AskAI from './AskAI'
 import LoadingSyncing from './LoadingSyncing'
 import SearchBar, { searchValueAtom } from './Searchbar'
+
 import SearchDisplay from './SearchDisplay'
 
 export default function ThreadListDashboard() {
@@ -81,9 +83,7 @@ export default function ThreadListDashboard() {
 
       <div className="sticky py-1 bg-white dark:bg-black  flex items-center justify-center mt-3 gap-4  bottom-0">
         <UserButton />
-        <Button variant="outline">
-          <BotMessageSquare className="size-4" />
-        </Button>
+        <AskAI />
         <ComposeEmail />
       </div>
     </Tabs>

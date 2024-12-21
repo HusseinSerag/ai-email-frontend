@@ -54,6 +54,7 @@
     "tailwindcss-animate": "^1.0.7",
     "turndown": "^7.2.0",
     "usehooks-ts": "^3.1.0",
+    "uuidv4": "^6.2.13",
     "vaul": "^1.1.1"
   },
   "devDependencies": {

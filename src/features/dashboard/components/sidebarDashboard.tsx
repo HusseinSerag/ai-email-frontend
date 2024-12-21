@@ -2,7 +2,7 @@ import { Separator } from '@/components/ui/separator'
 import { Sidebar, SidebarFooter, SidebarHeader } from '@/components/ui/sidebar'
 import { ModeToggle } from '@/components/ui/themeToggle'
 import AccountSwitcher from '@/features/dashboard/components/AccountSwitcher'
-import SidebarC from '@/features/dashboard/components/sidebar'
+import SidebarComponent from '@/features/dashboard/components/sidebar'
 
 import { cn } from '@/lib/utils'
 
@@ -17,7 +17,7 @@ export default function SidebarDashboard() {
         </SidebarHeader>
         <Separator />
         <div className="flex-1">
-          <SidebarC isCollapsed={false} />
+          <SidebarComponent isCollapsed={false} />
         </div>
 
         <SidebarFooter>

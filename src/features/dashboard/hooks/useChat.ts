@@ -1,0 +1,102 @@
+import type { ChangeEvent, FormEvent } from 'react'
+import { generateChat } from '@/api/generateAi'
+import { useCustomAuth } from '@/hooks/useCustomAuth'
+import { useMail } from '@/hooks/useMail'
+import { useState } from 'react'
+import { v4 as uuid } from 'uuid'
+
+export interface Message {
+  content: string
+  id: string
+  role: 'user' | 'system'
+}
+interface Props {
+  initialMessages?: Message[]
+}
+export function useChat(props?: Props) {
+  const [messages, setMessages] = useState<Message[]>(
+    props?.initialMessages ?? [],
+  )
+  const [input, setInput] = useState<string>('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [isGenerating, setIsGenerating] = useState(false)
+  const [error, setError] = useState('')
+  const { getToken } = useCustomAuth()
+  const { chosenAccount } = useMail()
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault()
+    if (isLoading || !input)
+      return
+    setError('')
+    const id = uuid()
+    const userMessage: Message = { content: input, role: 'user', id }
+    setMessages(messages => [...messages, userMessage])
+    setIsLoading(true)
+    const message: Message = {
+      role: 'system',
+      id: uuid(),
+      content: '',
+    }
+
+    try {
+      const token = await getToken()
+      if (!token || !chosenAccount)
+        throw new Error('unauthorized')
+      const res = await generateChat(
+        token,
+        [...messages, userMessage],
+        chosenAccount.id,
+      )
+      const reader = res.body?.pipeThrough(new TextDecoderStream()).getReader()
+      setInput('')
+
+      while (true) {
+        if (!reader)
+          break
+        const { value: newChunk, done } = await reader.read()
+        if (done)
+          break
+
+        message.content += newChunk
+        setIsLoading(false)
+        setIsGenerating(true)
+        setMessages((messages) => {
+          const updatedMessages = [...messages]
+          const lastMessage = updatedMessages.findIndex(
+            searchMessage => searchMessage.id === message.id,
+          )
+          if (lastMessage !== -1) {
+            updatedMessages[lastMessage] = { ...message }
+          }
+          else {
+            updatedMessages.push(message)
+          }
+          return updatedMessages
+        })
+      }
+    }
+    catch (e) {
+      setError((e as Error).message)
+    }
+    setIsLoading(false)
+    setIsGenerating(false)
+  }
+
+  function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
+    const valueWritten = e.target.value
+    setInput(valueWritten)
+  }
+
+  return {
+    handleInputChange,
+    handleSubmit,
+    messages,
+    setMessages,
+    input,
+    isLoading,
+    error,
+    setInput,
+    isGenerating,
+  }
+}
