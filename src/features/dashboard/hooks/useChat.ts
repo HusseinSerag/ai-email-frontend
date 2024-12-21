@@ -1,4 +1,4 @@
-import type { ChangeEvent, FormEvent } from 'react'
+import type { ChangeEvent } from 'react'
 import { generateChat } from '@/api/generateAi'
 import { useCustomAuth } from '@/hooks/useCustomAuth'
 import { useMail } from '@/hooks/useMail'
@@ -24,13 +24,22 @@ export function useChat(props?: Props) {
   const { getToken } = useCustomAuth()
   const { chosenAccount } = useMail()
 
-  async function handleSubmit(e: FormEvent) {
+  interface FormEvent {
+    preventDefault: () => void
+  }
+  async function handleSubmit(e: FormEvent, content?: string) {
     e.preventDefault()
-    if (isLoading || !input)
+    if (isLoading)
+      return
+    if (!input && !content)
       return
     setError('')
     const id = uuid()
-    const userMessage: Message = { content: input, role: 'user', id }
+    const userMessage: Message = {
+      content: content || input,
+      role: 'user',
+      id,
+    }
     setMessages(messages => [...messages, userMessage])
     setIsLoading(true)
     const message: Message = {

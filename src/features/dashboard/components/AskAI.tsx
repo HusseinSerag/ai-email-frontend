@@ -97,20 +97,43 @@ export default function AskAI() {
                   </div>
                   <div className="mt-4 flex-wrap justify-center flex gap-2">
                     <span
-                      onClick={() => setInput('What can I ask?')}
+                      onClick={async () => {
+                        setInput('What can I ask?')
+                        await handleSubmit(
+                          {
+                            preventDefault() {},
+                          },
+                          'What can I ask?',
+                        )
+                      }}
                       className="px-2 py-1 bg-gray-800 cursor-pointer text-gray-200 rounded-md text-xs"
                     >
                       What can I ask?
                     </span>
                     <span
-                      onClick={() => setInput('When is my next flight?')}
+                      onClick={async () => {
+                        setInput('When is my next flight?')
+                        await handleSubmit(
+                          {
+                            preventDefault() {},
+                          },
+                          'When is my next flight?',
+                        )
+                      }}
                       className="px-2 py-1 bg-gray-800 cursor-pointer text-gray-200 rounded-md text-xs"
                     >
                       When is my next flight?
                     </span>
                     <span
-                      onClick={() =>
-                        setInput('What is my last food order price?')}
+                      onClick={async () => {
+                        setInput('What is my last food order price?')
+                        await handleSubmit(
+                          {
+                            preventDefault() {},
+                          },
+                          'What is my last food order price?',
+                        )
+                      }}
                       className="px-2 py-1 bg-gray-800 cursor-pointer text-gray-200 rounded-md text-xs"
                     >
                       What is my last food order price?
