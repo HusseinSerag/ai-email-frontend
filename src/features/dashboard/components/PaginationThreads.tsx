@@ -40,6 +40,7 @@ export default function PaginationThreads() {
           {!myRange.includes(start) && <PaginationEllipsis />}
           {myRange.map((i: number) => (
             <PaginationItem
+              key={i}
               onClick={() => {
                 searchParams.set('page', i.toString())
                 setSearchParams(searchParams)
