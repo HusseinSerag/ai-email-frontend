@@ -1,4 +1,5 @@
 import useGetThread from '@/api/threads/useGetThread'
+import useToggleArchiveThread from '@/api/threads/useToggleArchiveThread'
 import useToggleStarThread from '@/api/threads/useToggleStarThread'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -8,8 +9,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Separator } from '@/components/ui/separator'
 
+import { Separator } from '@/components/ui/separator'
 import { LoadingSpinner } from '@/components/ui/spinner'
 import { isSearchAtom } from '@/features/dashboard/components/Searchbar'
 import SearchDisplay, {
@@ -41,10 +42,12 @@ export default function ThreadDisplay() {
   }, [threadId])
   const { isPendingThread, thread: foundThread } = useGetThread()
   const { toggleThread, isToggling } = useToggleStarThread()
+  const { archiveThread, isArchiving } = useToggleArchiveThread()
   const thread = searchId
     ? foundThread
     : threads?.find(thread => thread.id === threadId)
-  const disabled = !thread || isSearching || isPendingThread || isToggling
+  const disabled
+    = !thread || isSearching || isPendingThread || isToggling || isArchiving
 
   return (
     <div className="flex w-full flex-col max-h-screen h-full">
@@ -61,12 +64,19 @@ export default function ThreadDisplay() {
           >
             <X className=" ml-4 size-4" />
           </Button>
-          <Button variant="ghost" size="icon" disabled={disabled}>
-            <Archive className="size-4" />
+          <Button
+            onClick={() => {
+              if (!isArchiving) {
+                archiveThread()
+              }
+            }}
+            variant="ghost"
+            size="icon"
+            disabled={disabled}
+          >
+            {thread?.archived ? <ArchiveX /> : <Archive className="size-4" />}
           </Button>
-          <Button variant="ghost" size="icon" disabled={disabled}>
-            <ArchiveX className="size-4" />
-          </Button>
+
           <Button variant="ghost" size="icon" disabled={disabled}>
             <Trash2Icon className="size-4" />
           </Button>

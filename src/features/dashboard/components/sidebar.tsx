@@ -3,7 +3,7 @@ import { Nav } from '@/components/ui/nav'
 import { useCurrentTab } from '@/hooks/useCurrentTab'
 
 import { useMail } from '@/hooks/useMail'
-import { File, Inbox, Send, Star } from 'lucide-react'
+import { Archive, File, Inbox, Send, Star } from 'lucide-react'
 
 interface SidebarProps {
   isCollapsed: boolean
@@ -44,6 +44,12 @@ export default function Sidebar({ isCollapsed }: SidebarProps) {
           icon: Star,
           variant: tab === 'starred' ? 'default' : 'ghost',
           display: 'Starred',
+        },
+        {
+          title: 'archived',
+          icon: Archive,
+          variant: tab === 'archived' ? 'default' : 'ghost',
+          display: 'Archived',
         },
       ]}
     />

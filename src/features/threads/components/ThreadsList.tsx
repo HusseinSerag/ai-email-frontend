@@ -32,7 +32,10 @@ export default function ThreadList({ children }: ThreadListProps) {
   const groupedThreads = new Map<string, EmailThread[]>()
 
   for (const thread of threads || []) {
-    const date = format(thread.emails[0]?.sentAt ?? new Date(), 'yyyy-MM-dd')
+    const date = format(
+      thread.emails.at(-1)?.sentAt ?? new Date(),
+      'yyyy-MM-dd',
+    )
 
     const otherThreads = groupedThreads.get(date) || []
     groupedThreads.set(date, [...otherThreads, thread])
