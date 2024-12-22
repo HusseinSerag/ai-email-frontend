@@ -19,14 +19,7 @@ import SearchDisplay, {
 import { useMail } from '@/hooks/useMail'
 import { format } from 'date-fns'
 import { useAtom } from 'jotai'
-import {
-  Archive,
-  ArchiveX,
-  Clock,
-  MoreVertical,
-  Trash2Icon,
-  X,
-} from 'lucide-react'
+import { Archive, ArchiveX, MoreVertical, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { EmailDisplay } from '../../mail/components/EmailDisplay'
 import ReplyBox from '../../mail/components/ReplyBox'
@@ -76,19 +69,6 @@ export default function ThreadDisplay() {
           >
             {thread?.archived ? <ArchiveX /> : <Archive className="size-4" />}
           </Button>
-
-          <Button variant="ghost" size="icon" disabled={disabled}>
-            <Trash2Icon className="size-4" />
-          </Button>
-          <Separator orientation="vertical" className="ml-2" />
-          <Button
-            variant="ghost"
-            size="icon"
-            className="ml-2"
-            disabled={disabled}
-          >
-            <Clock className="size-4" />
-          </Button>
         </div>
         {thread && (
           <div className="flex items-center ml-auto">
@@ -111,8 +91,6 @@ export default function ThreadDisplay() {
                   {' '}
                   thread
                 </DropdownMenuItem>
-                <DropdownMenuItem>Add label</DropdownMenuItem>
-                <DropdownMenuItem>Mute thread</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

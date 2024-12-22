@@ -22,7 +22,7 @@ export default function useToggleArchiveThread() {
 
         return (
           await createAxiosClient(token!).patch<{ archived: boolean }>(
-            `/api/accounts/thread/archive/${accountId}/${threadId}`,
+            `/api/threads/archive/${accountId}/${threadId}`,
             {},
           )
         ).data

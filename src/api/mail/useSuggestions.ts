@@ -20,7 +20,7 @@ export default function useSuggestions() {
         return (
           await createAxiosClient(token!).get<
             Omit<EmailParticipant, 'accountId'>[]
-          >(`/api/accounts/suggestions/${chosenAccount.id}`)
+          >(`/api/email/suggestions/${chosenAccount.id}`)
         ).data
       }
       catch (e) {

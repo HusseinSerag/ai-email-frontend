@@ -22,7 +22,7 @@ export default function useThreadCount() {
             sent: number
             inbox: number
             starred: number
-          }>(`/api/accounts/thread-count/${accountId}`)
+          }>(`/api/threads/count/${accountId}`)
         ).data
       }
       catch (e) {

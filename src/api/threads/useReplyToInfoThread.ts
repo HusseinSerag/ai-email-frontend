@@ -23,7 +23,7 @@ export default function useReplyToInfo() {
 
         return (
           await createAxiosClient(token!).get<ReplyToInformation>(
-            `/api/accounts/thread/${accountId}/${threadId}`,
+            `/api/threads/info/${accountId}/${threadId}`,
             {},
           )
         ).data

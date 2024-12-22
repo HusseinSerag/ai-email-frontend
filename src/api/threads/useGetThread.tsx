@@ -22,7 +22,7 @@ export default function useGetThread() {
 
         return (
           await createAxiosClient(token!).get(
-            `/api/accounts/get-thread/${accountId}/${searchThread}`,
+            `/api/threads/${accountId}/${searchThread}`,
           )
         ).data
       }

@@ -38,12 +38,11 @@ export async function generateChat(
 ) {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/ai/chat`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/ai/chat/${accountId}`,
       {
         method: 'POST',
         body: JSON.stringify({
           messages: message,
-          accountId,
         }),
         headers: {
           'Authorization': `Bearer ${token}`,

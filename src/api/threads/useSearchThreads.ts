@@ -27,7 +27,7 @@ export default function useSearchThreads() {
 
         return (
           await createAxiosClient(token).get(
-            `/api/accounts/search/${accountId}?query=${debouncedSearchValue}`,
+            `/api/threads/search/${accountId}?query=${debouncedSearchValue}`,
           )
         ).data
       }

@@ -33,7 +33,7 @@ export default function useAccountThreads() {
             totalPages: number
             totalCount: number
           }
-        }>(`/api/accounts/threads/${accountId}`, {
+        }>(`/api/threads/${accountId}`, {
           params: {
             isDone: done,
             tab,

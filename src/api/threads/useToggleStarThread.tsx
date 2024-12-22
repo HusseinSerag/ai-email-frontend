@@ -23,7 +23,7 @@ export default function useToggleStarThread() {
 
         return (
           await createAxiosClient(token!).patch<{ starred: boolean }>(
-            `/api/accounts/thread/star/${accountId}/${threadId}`,
+            `/api/threads/star/${accountId}/${threadId}`,
             {},
           )
         ).data
