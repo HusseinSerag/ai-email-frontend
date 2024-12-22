@@ -1,4 +1,5 @@
 import useGetThread from '@/api/threads/useGetThread'
+import useToggleStarThread from '@/api/threads/useToggleStarThread'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
@@ -8,8 +9,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Separator } from '@/components/ui/separator'
-import { LoadingSpinner } from '@/components/ui/spinner'
 
+import { LoadingSpinner } from '@/components/ui/spinner'
 import { isSearchAtom } from '@/features/dashboard/components/Searchbar'
 import SearchDisplay, {
   SearchThreadAtom,
@@ -39,11 +40,11 @@ export default function ThreadDisplay() {
     setOpenReplyBox(false)
   }, [threadId])
   const { isPendingThread, thread: foundThread } = useGetThread()
-
+  const { toggleThread, isToggling } = useToggleStarThread()
   const thread = searchId
     ? foundThread
     : threads?.find(thread => thread.id === threadId)
-  const disabled = !thread || isSearching || isPendingThread
+  const disabled = !thread || isSearching || isPendingThread || isToggling
 
   return (
     <div className="flex w-full flex-col max-h-screen h-full">
@@ -79,21 +80,33 @@ export default function ThreadDisplay() {
             <Clock className="size-4" />
           </Button>
         </div>
-        <div className="flex items-center ml-auto">
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Button variant="ghost" size="icon" disabled={!thread}>
-                <MoreVertical className="size-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>Mark as unread</DropdownMenuItem>
-              <DropdownMenuItem>Star thread</DropdownMenuItem>
-              <DropdownMenuItem>Add label</DropdownMenuItem>
-              <DropdownMenuItem>Mute thread</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+        {thread && (
+          <div className="flex items-center ml-auto">
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Button variant="ghost" size="icon" disabled={!thread}>
+                  <MoreVertical className="size-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>Mark as unread</DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    if (isToggling || !threadId)
+                      return
+                    toggleThread()
+                  }}
+                >
+                  {thread?.starred ? 'Unstar' : 'Star'}
+                  {' '}
+                  thread
+                </DropdownMenuItem>
+                <DropdownMenuItem>Add label</DropdownMenuItem>
+                <DropdownMenuItem>Mute thread</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        )}
       </div>
       <Separator />
       {isSearching

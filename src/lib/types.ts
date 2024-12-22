@@ -63,6 +63,7 @@ export interface EmailThread {
   inboxStatus: boolean
   draftStatus: boolean
   sentStatus: boolean
+  starred: boolean
   emails: Email[]
 }
 

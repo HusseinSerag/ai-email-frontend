@@ -73,7 +73,10 @@ export default function AskAI() {
           <BotMessageSquare className="size-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-[90%] rounded-2xl bg-gray-100 shadow-inner dark:bg-gray-900">
+      <DialogContent
+        aria-describedby="talk with AI and ask questions about your email"
+        className="w-[90%] rounded-2xl bg-gray-100 shadow-inner dark:bg-gray-900"
+      >
         <DialogTitle>Talk with AI</DialogTitle>
         <div className="flex flex-col items-end pb-1 rounded-lg relative">
           <div
