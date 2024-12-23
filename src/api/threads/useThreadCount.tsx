@@ -29,6 +29,8 @@ export default function useThreadCount() {
         return null
       }
     },
+    enabled: navigator.onLine,
+    retry: false,
   })
 
   return {

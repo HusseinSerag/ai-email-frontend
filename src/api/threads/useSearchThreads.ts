@@ -35,6 +35,7 @@ export default function useSearchThreads() {
         return null
       }
     },
+    enabled: navigator.onLine,
   })
 
   return {

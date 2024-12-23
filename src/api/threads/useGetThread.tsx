@@ -30,6 +30,8 @@ export default function useGetThread() {
         return null
       }
     },
+    enabled: navigator.onLine,
+    retry: false,
   })
 
   return {

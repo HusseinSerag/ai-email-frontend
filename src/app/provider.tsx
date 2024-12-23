@@ -1,18 +1,19 @@
-import { Toaster } from '@/components/ui/toaster'
+import OnlineStatus from '@/components/ui/OnlineStatus'
 
+import { Toaster } from '@/components/ui/toaster'
 import { MainErrorFallback } from '@/error/MainErrorFallback'
 import { ClerkProvider } from '@clerk/clerk-react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import { ErrorBoundary } from 'react-error-boundary'
-
 import { useNavigate } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 import { ThemeProvider } from '../context/themeProvider'
 import Kbar from '../features/kbar'
-import { useSetTitle } from '../hooks/useSetTitle'
 
+import { useSetTitle } from '../hooks/useSetTitle'
 import Router from './router'
 import '@cyntler/react-doc-viewer/dist/index.css'
 
@@ -49,6 +50,7 @@ function Component() {
   return (
     <ThemeProvider>
       <Kbar>
+        <OnlineStatus />
         <Router />
       </Kbar>
       <ToastContainer

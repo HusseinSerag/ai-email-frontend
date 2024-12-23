@@ -32,6 +32,8 @@ export default function useReplyToInfo() {
         return null
       }
     },
+    enabled: navigator.onLine,
+    retry: false,
   })
 
   return {

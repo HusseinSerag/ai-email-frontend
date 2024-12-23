@@ -55,17 +55,22 @@ export default function useAccountThreads() {
     retry: false,
     queryKey: ['threads', userId, accountId, tab, done, page],
     queryFn: () => fn(page),
+    enabled: navigator.onLine,
   })
   if (page - 1 >= 0) {
     queryClient.prefetchQuery({
       queryKey: ['threads', userId, accountId, tab, done, page - 1],
       queryFn: () => fn(page - 1),
+
+      retry: false,
     })
   }
   if (threads && page + 1 < threads?.meta.totalPages) {
     queryClient.prefetchQuery({
       queryKey: ['threads', userId, accountId, tab, done, page + 1],
       queryFn: () => fn(page + 1),
+
+      retry: false,
     })
   }
 

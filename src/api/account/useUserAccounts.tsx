@@ -22,6 +22,8 @@ export default function useUserAccounts() {
         return null
       }
     },
+    retry: false,
+    enabled: navigator.onLine,
   })
   return {
     accounts,

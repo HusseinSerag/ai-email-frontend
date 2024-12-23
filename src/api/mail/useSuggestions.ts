@@ -27,6 +27,8 @@ export default function useSuggestions() {
         return null
       }
     },
+    enabled: navigator.onLine,
+    retry: false,
   })
   return {
     suggestions,
