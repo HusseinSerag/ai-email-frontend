@@ -1,6 +1,7 @@
 import { Separator } from '@/components/ui/separator'
 import { Sidebar, SidebarFooter, SidebarHeader } from '@/components/ui/sidebar'
 import { ModeToggle } from '@/components/ui/themeToggle'
+
 import AccountSwitcher from '@/features/dashboard/components/AccountSwitcher'
 import SidebarComponent from '@/features/dashboard/components/sidebar'
 
@@ -21,6 +22,7 @@ export default function SidebarDashboard() {
         </div>
 
         <SidebarFooter>
+          {/* <PremiumBanner /> */}
           <div className={cn('flex items-center gap-2 px-2 py-1', {})}>
             <ModeToggle />
           </div>

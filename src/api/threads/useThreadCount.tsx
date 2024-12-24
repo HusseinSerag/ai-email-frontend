@@ -22,6 +22,10 @@ export default function useThreadCount() {
             sent: number
             inbox: number
             starred: number
+            social: number
+            updates: number
+            personal: number
+            promotions: number
           }>(`/api/threads/count/${accountId}`)
         ).data
       }

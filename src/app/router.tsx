@@ -1,4 +1,3 @@
-import { useNetworkStatus } from '@/hooks/useNetworkStatus'
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { LoadingSpinner } from '../components/ui/spinner'
@@ -17,15 +16,6 @@ const Mail = lazy(() => import('./routes/mail'))
 const ErrorPage = lazy(() => import('./routes/error'))
 
 export default function Router() {
-  const isOnline = useNetworkStatus()
-
-  if (!isOnline) {
-    return (
-      <div className="w-full flex items-center justify-center h-full">
-        Network error, please connect to internet!
-      </div>
-    )
-  }
   return (
     <Suspense
       fallback={

@@ -16,7 +16,7 @@ import { isSearchAtom } from '@/features/dashboard/components/Searchbar'
 import SearchDisplay, {
   SearchThreadAtom,
 } from '@/features/dashboard/components/SearchDisplay'
-import { useMail } from '@/hooks/useMail'
+
 import { format } from 'date-fns'
 import { useAtom } from 'jotai'
 import { Archive, ArchiveX, MoreVertical, X } from 'lucide-react'
@@ -25,20 +25,18 @@ import { EmailDisplay } from '../../mail/components/EmailDisplay'
 import ReplyBox from '../../mail/components/ReplyBox'
 
 export default function ThreadDisplay() {
-  const { threadId, threads, setThreadId } = useMail()
   const [openReplyBox, setOpenReplyBox] = useState(false)
   const [isSearching] = useAtom(isSearchAtom)
 
   const [searchId, setSearchId] = useAtom(SearchThreadAtom)
   useEffect(() => {
     setOpenReplyBox(false)
-  }, [threadId])
+  }, [searchId])
   const { isPendingThread, thread: foundThread } = useGetThread()
   const { toggleThread, isToggling } = useToggleStarThread()
   const { archiveThread, isArchiving } = useToggleArchiveThread()
-  const thread = searchId
-    ? foundThread
-    : threads?.find(thread => thread.id === threadId)
+  const thread = foundThread
+
   const disabled
     = !thread || isSearching || isPendingThread || isToggling || isArchiving
 
@@ -50,7 +48,6 @@ export default function ThreadDisplay() {
             variant="ghost"
             size="icon"
             onClick={() => {
-              setThreadId('')
               setSearchId('')
             }}
             className="md:hidden block"
@@ -79,10 +76,12 @@ export default function ThreadDisplay() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem>Mark as unread</DropdownMenuItem>
+                {thread.emails.some(
+                  email => !email.sysLabels.includes('unread'),
+                ) && <DropdownMenuItem>Mark as unread</DropdownMenuItem>}
                 <DropdownMenuItem
                   onClick={() => {
-                    if (isToggling || !threadId)
+                    if (isToggling || !searchId)
                       return
                     toggleThread()
                   }}

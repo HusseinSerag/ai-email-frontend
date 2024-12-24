@@ -1,13 +1,11 @@
 import useUserAccounts from '@/api/account/useUserAccounts'
-import useAccountThreads from '@/api/threads/useAccountThreads'
 import useThreadCount from '@/api/threads/useThreadCount'
+import useAccountThreads from '@/api/threads/useThreads'
 
 import { SearchThreadAtom } from '@/features/dashboard/components/SearchDisplay'
 
-import { atom, useAtom } from 'jotai'
+import { useAtom } from 'jotai'
 import { useCurrentAccount } from './useCurrentAccount'
-
-export const threadIdAtom = atom<string | null>(null)
 
 export function useMail() {
   const { accounts, isPendingAccounts } = useUserAccounts()
@@ -19,12 +17,12 @@ export function useMail() {
   } = useAccountThreads()
   const { value: accountId } = useCurrentAccount()
   const chosenAccount = accounts?.find(acc => acc.id === accountId)
-  const [threadIdChosen, setThreadId] = useAtom(threadIdAtom)
+
   const [searchId] = useAtom(SearchThreadAtom)
 
   const isLoading = isPendingAccounts || isPendingCount
 
-  const threadId = threadIdChosen || searchId
+  const threadId = searchId
   return {
     accounts: accounts!,
     isLoading,
@@ -34,7 +32,6 @@ export function useMail() {
     isLoadingThreads,
     chosenAccount,
     threadId,
-    setThreadId,
     refetchThreads,
   }
 }

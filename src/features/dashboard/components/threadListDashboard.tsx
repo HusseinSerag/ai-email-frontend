@@ -1,4 +1,4 @@
-import type { Done } from '@/lib/globals'
+import type { Unread } from '@/lib/globals'
 
 import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
@@ -32,7 +32,7 @@ export default function ThreadListDashboard() {
     <Tabs
       value={done}
       onValueChange={(e) => {
-        setDone(e as Done)
+        setDone(e as Unread)
       }}
       className=" h-full max-h-screen overflow-y-auto flex flex-col w-full relative "
       defaultValue="inbox"
@@ -45,16 +45,16 @@ export default function ThreadListDashboard() {
           </h1>
           <TabsList className="ml-auto">
             <TabsTrigger
-              value="inbox"
+              value="all"
               className="text-zinc-600 dark:text-zinc-200"
             >
-              Inbox
+              All mails
             </TabsTrigger>
             <TabsTrigger
-              value="done"
+              value="unread"
               className="text-zinc-600 dark:text-zinc-200"
             >
-              Done
+              unread
             </TabsTrigger>
           </TabsList>
         </div>

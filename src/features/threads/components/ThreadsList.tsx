@@ -1,29 +1,32 @@
 import type { EmailThread } from '@/lib/types'
 import type { ReactNode } from 'react'
+import useToggleReadThread from '@/api/threads/useToggleReadThread'
 import { Badge } from '@/components/ui/badge'
 import { LoadingSpinner } from '@/components/ui/spinner'
+
 import { SearchThreadAtom } from '@/features/dashboard/components/SearchDisplay'
+import { useCurrentDone } from '@/hooks/useCurrentDone'
 
 import { useCurrentTab } from '@/hooks/useCurrentTab'
 import { useMail } from '@/hooks/useMail'
 
 import { cn } from '@/lib/utils'
 import { format, formatDistanceToNow } from 'date-fns'
-
 import DOMPurify from 'dompurify'
+
 import { useAtom } from 'jotai'
 import { Fragment } from 'react/jsx-runtime'
-
 import { getBadgeVariantFromLabel } from '../util/getBageVariant'
 
 interface ThreadListProps {
   children?: ReactNode
 }
 export default function ThreadList({ children }: ThreadListProps) {
-  const { threads, isLoadingThreads, setThreadId, threadId } = useMail()
+  const { threads, isLoadingThreads, threadId } = useMail()
   const { tab } = useCurrentTab()
   const [_, setSearchId] = useAtom(SearchThreadAtom)
-
+  const { isTogglingRead, toggleRead } = useToggleReadThread()
+  const { done } = useCurrentDone()
   if (isLoadingThreads) {
     return (
       <LoadingSpinner outerClassName="w-full h-full flex items-center justify-center" />
@@ -62,10 +65,20 @@ export default function ThreadList({ children }: ThreadListProps) {
                       return (
                         <button
                           onClick={() => {
-                            setThreadId(prev =>
+                            setSearchId(prev =>
                               prev === thread.id ? '' : thread.id,
                             )
-                            setSearchId('')
+
+                            if (
+                              thread.emails.some(email =>
+                                email.sysLabels.includes('unread'),
+                              )
+                              && !isTogglingRead
+                            ) {
+                              toggleRead({
+                                threadId: thread.id,
+                              })
+                            }
                           }}
                           key={thread.id}
                           className={cn(
@@ -79,7 +92,7 @@ export default function ThreadList({ children }: ThreadListProps) {
                             <div className="flex items-center">
                               <div className="flex items-center gap-2">
                                 <div className="font-semibold  text-[12px] md:text-base">
-                                  {tab === 'inbox'
+                                  {tab !== 'sent'
                                   && (thread.emails.at(-1)?.from?.name
                                     || thread.emails.at(-1)?.from?.address)}
                                   {tab === 'sent' && (
@@ -125,17 +138,23 @@ export default function ThreadList({ children }: ThreadListProps) {
                           </div>
                           {thread.emails[0]?.sysLabels.length > 0 && (
                             <div className="flex items-center gap-2">
-                              {thread.emails[0]?.sysLabels.map((label) => {
-                                return (
-                                  <Badge
-                                    variant={getBadgeVariantFromLabel(label)}
-                                    key={label}
-                                    className="text-xs font-medium"
-                                  >
-                                    {label}
-                                  </Badge>
+                              {thread.emails[0]?.sysLabels
+                                .filter(
+                                  label =>
+                                    (done === 'unread' && label !== 'unread')
+                                    || done === 'all',
                                 )
-                              })}
+                                .map((label) => {
+                                  return (
+                                    <Badge
+                                      variant={getBadgeVariantFromLabel(label)}
+                                      key={label}
+                                      className="text-xs font-medium"
+                                    >
+                                      {label}
+                                    </Badge>
+                                  )
+                                })}
                             </div>
                           )}
                         </button>

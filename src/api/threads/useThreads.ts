@@ -35,7 +35,7 @@ export default function useAccountThreads() {
           }
         }>(`/api/threads/${accountId}`, {
           params: {
-            isDone: done,
+            unread: done,
             tab,
             page,
             offset,

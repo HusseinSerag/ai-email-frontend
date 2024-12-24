@@ -1,2 +1,11 @@
-export type Tab = 'inbox' | 'draft' | 'sent' | 'starred' | 'archived'
-export type Done = 'inbox' | 'done'
+export type Tab =
+  | 'inbox'
+  | 'draft'
+  | 'sent'
+  | 'starred'
+  | 'archived'
+  | 'updates'
+  | 'social'
+  | 'promotions'
+  | 'personal'
+export type Unread = 'all' | 'unread'

@@ -1,5 +1,6 @@
 import useSearchThreads from '@/api/threads/useSearchThreads'
-import { useMail } from '@/hooks/useMail'
+
+import useToggleReadThread from '@/api/threads/useToggleReadThread'
 import DOMPurify from 'dompurify'
 import { atom, useAtom } from 'jotai'
 import { Loader2 } from 'lucide-react'
@@ -9,9 +10,9 @@ export const SearchThreadAtom = atom<string>('')
 export default function SearchDisplay() {
   const [searchValue, setSearchValue] = useAtom(searchValueAtom)
   const { hits, isLoadingHits } = useSearchThreads()
-  const { setThreadId } = useMail()
   const [__, setSearchId] = useAtom(SearchThreadAtom)
   const [_, setIsSearching] = useAtom(isSearchAtom)
+  const { isTogglingRead, toggleRead } = useToggleReadThread()
 
   return (
     <div className="p-4 max-h-[70vh] md:max-h-[calc(100vh-120px)] overflow-y-auto">
@@ -39,10 +40,19 @@ export default function SearchDisplay() {
                       key={index}
                       className="border list-none rounded-md p-4 hover:bg-gray-100 cursor-pointer transition-all dark:hover:bg-gray-900"
                       onClick={() => {
-                        setThreadId('')
-                        setSearchId(hit.threadId)
+                        setSearchId(hit.id)
                         setSearchValue('')
                         setIsSearching(false)
+                        if (
+                          hit.emails.some(email =>
+                            email.sysLabels.includes('unread'),
+                          )
+                          && !isTogglingRead
+                        ) {
+                          toggleRead({
+                            threadId: hit.id,
+                          })
+                        }
                       }}
                     >
                       <h3 className="text-base font-medium">{hit.subject}</h3>
@@ -52,7 +62,7 @@ export default function SearchDisplay() {
                       </p>
                       <p className="text-sm text-gray-500">
                         to:
-                        {hit.to.join(', ')}
+                        {hit.to?.join(', ')}
                       </p>
                       <p
                         className="text-sm mt-2"
