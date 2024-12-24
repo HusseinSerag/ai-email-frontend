@@ -66,24 +66,24 @@ export default function useKbarMail() {
       },
       {
         id: 'pending',
-        name: 'See done',
+        name: 'See all',
         shortcut: ['g', 'd'],
         keywords: 'done',
         section: 'Navigation',
-        subtitle: 'View the done emails',
+        subtitle: 'View the all emails',
         perform: () => {
-          setDone('done')
+          setDone('all')
         },
       },
       {
         id: 'done',
-        name: 'See Pending',
+        name: 'See unread',
         shortcut: ['g', 'u'],
-        keywords: 'pending, undone, not done',
+        keywords: 'unread, undone, not done',
         section: 'Navigation',
-        subtitle: 'View the pending emails',
+        subtitle: 'View the unread emails',
         perform: () => {
-          setDone('inbox')
+          setDone('unread')
         },
       },
       {
