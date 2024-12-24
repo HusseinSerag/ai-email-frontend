@@ -13,15 +13,18 @@ import { useCurrentAccount } from '@/hooks/useCurrentAccount'
 
 import { useMail } from '@/hooks/useMail'
 import { cn } from '@/lib/utils'
+import { useAtom } from 'jotai'
 import { Plus, RotateCcw } from 'lucide-react'
+import { SearchThreadAtom } from './SearchDisplay'
 
 interface AccountSwitcherProps {
   isCollapsed: boolean
 }
 
 export default function AccountSwitcher({ isCollapsed }: AccountSwitcherProps) {
-  const { accounts, setThreadId } = useMail()
+  const { accounts } = useMail()
   const { value, setValue } = useCurrentAccount()
+  const [_, setThreadId] = useAtom(SearchThreadAtom)
 
   const { errorGettingUrl, getAuthUrl, isGettingUrl } = useGetAuthUrl()
   return (
