@@ -1,22 +1,23 @@
 import useGetThread from '@/api/threads/useGetThread'
 import useToggleArchiveThread from '@/api/threads/useToggleArchiveThread'
+import useToggleReadThread from '@/api/threads/useToggleReadThread'
 import useToggleStarThread from '@/api/threads/useToggleStarThread'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-
 import { Separator } from '@/components/ui/separator'
 import { LoadingSpinner } from '@/components/ui/spinner'
 import { isSearchAtom } from '@/features/dashboard/components/Searchbar'
+
 import SearchDisplay, {
   SearchThreadAtom,
 } from '@/features/dashboard/components/SearchDisplay'
-
 import { format } from 'date-fns'
 import { useAtom } from 'jotai'
 import { Archive, ArchiveX, MoreVertical, X } from 'lucide-react'
@@ -36,7 +37,7 @@ export default function ThreadDisplay() {
   const { toggleThread, isToggling } = useToggleStarThread()
   const { archiveThread, isArchiving } = useToggleArchiveThread()
   const thread = foundThread
-
+  const { isTogglingRead, toggleRead } = useToggleReadThread()
   const disabled
     = !thread || isSearching || isPendingThread || isToggling || isArchiving
 
@@ -78,7 +79,19 @@ export default function ThreadDisplay() {
               <DropdownMenuContent>
                 {thread.emails.some(
                   email => !email.sysLabels.includes('unread'),
-                ) && <DropdownMenuItem>Mark as unread</DropdownMenuItem>}
+                ) && (
+                  <DropdownMenuItem
+                    onClick={() => {
+                      if (!isTogglingRead) {
+                        toggleRead({
+                          threadId: thread.id,
+                        })
+                      }
+                    }}
+                  >
+                    Mark as unread
+                  </DropdownMenuItem>
+                )}
                 <DropdownMenuItem
                   onClick={() => {
                     if (isToggling || !searchId)
