@@ -8,7 +8,7 @@ export function useGetSubscription() {
     queryKey: ['subscription', userId],
     queryFn: async () => {
       const token = await getToken()
-      if (!token) {
+      if (!token || !userId) {
         throw new Error('No token!')
       }
       const res = (

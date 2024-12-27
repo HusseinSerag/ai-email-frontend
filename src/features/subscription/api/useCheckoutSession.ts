@@ -7,13 +7,13 @@ import { useGetSubscription } from './useGetSubscription'
 export function useCheckoutSession() {
   const [isLoading, setIsLoading] = useState(false)
 
-  const { getToken } = useCustomAuth()
+  const { getToken, userId } = useCustomAuth()
   const { data } = useGetSubscription()
   async function getCheckoutUrl() {
     try {
       setIsLoading(true)
       const token = await getToken()
-      if (!token)
+      if (!token || !userId)
         throw new Error('No token!')
 
       const url = (
