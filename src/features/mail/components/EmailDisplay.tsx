@@ -20,7 +20,7 @@ export function EmailDisplay({ email, openReply, isLast }: DisplayEmailsProps) {
   return (
     <div
       className={cn(
-        'border rounded-md p-4 transition-all hover:translate-x-2',
+        'border rounded-md p-4 overflow-hidden transition-all hover:translate-x-2',
         {
           'border-l-gray-900 border-l-4  dark:border-l-gray-200': isMe,
         },
@@ -73,7 +73,7 @@ export function EmailDisplay({ email, openReply, isLast }: DisplayEmailsProps) {
                   link.click()
                   document.body.removeChild(link)
                 }}
-                className="py-1 px-2  items-end flex  overflow-hidden bg-gray-200 hover:scale-105 cursor-pointer  text-sm"
+                className="py-1 px-2  items-end flex  overflow-hidden dark:bg-gray-900 dark:text-white bg-gray-200 hover:scale-105 cursor-pointer  text-sm"
               >
                 <div className="hidden">
                   <DocumentViewer

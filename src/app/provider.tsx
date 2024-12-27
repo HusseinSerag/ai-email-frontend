@@ -7,7 +7,6 @@ import { ClerkProvider } from '@clerk/clerk-react'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ErrorBoundary } from 'react-error-boundary'
 import { useNavigate } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
@@ -42,7 +41,7 @@ export default function Provider() {
             <Component />
           </ClerkProvider>
           <Toaster />
-          <ReactQueryDevtools initialIsOpen={false} />
+          {/* <ReactQueryDevtools  initialIsOpen={false} position="top" /> */}
         </QueryClientProvider>
       )}
       {!isOnline && (

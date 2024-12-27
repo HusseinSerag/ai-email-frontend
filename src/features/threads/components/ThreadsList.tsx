@@ -82,7 +82,7 @@ export default function ThreadList({ children }: ThreadListProps) {
                           }}
                           key={thread.id}
                           className={cn(
-                            'flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all relative',
+                            'flex flex-col items-start gap-2 rounded-lg border p-3 text-left overflow-hidden text-sm transition-all relative',
                             {
                               'bg-accent': thread.id === threadId,
                             },
@@ -133,7 +133,7 @@ export default function ThreadList({ children }: ThreadListProps) {
                                 },
                               ),
                             }}
-                            className="text-xs line-clamp-2 text-muted-foreground"
+                            className="text-xs line-clamp-2  text-muted-foreground"
                           >
                           </div>
                           {thread.emails[0]?.sysLabels.length > 0 && (

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
-export function createAxiosClient(token: string) {
+export function createAxiosClient(token: string, dealWithErrors = true) {
   const backendUrl = import.meta.env.VITE_BACKEND_URL
   const axiosClient = axios.create({
     baseURL: backendUrl,
@@ -14,6 +14,8 @@ export function createAxiosClient(token: string) {
   axiosClient.interceptors.response.use(
     response => response.data,
     (error) => {
+      if (!dealWithErrors)
+        throw error
       const message = error.response?.data?.message || error.message
       if (message !== 'User does not exist')
         toast.error(`Error: ${message}`)

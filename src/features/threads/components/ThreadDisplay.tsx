@@ -39,7 +39,12 @@ export default function ThreadDisplay() {
   const thread = foundThread
   const { isTogglingRead, toggleRead } = useToggleReadThread()
   const disabled
-    = !thread || isSearching || isPendingThread || isToggling || isArchiving
+    = !thread
+    || isSearching
+    || isPendingThread
+    || isToggling
+    || isArchiving
+    || isTogglingRead
 
   return (
     <div className="flex w-full flex-col max-h-screen h-full">

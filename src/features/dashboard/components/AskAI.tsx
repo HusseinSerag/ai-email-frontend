@@ -1,3 +1,4 @@
+import useInteraction from '@/api/interactions/useInteractions'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -6,6 +7,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import { useGetSubscription } from '@/features/subscription/api/useGetSubscription'
+import { FREE_CREDITS_PER_DAY } from '@/lib/globals'
 import { cn } from '@/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowDown, BotMessageSquare, Send, SparklesIcon } from 'lucide-react'
@@ -27,6 +30,8 @@ export default function AskAI() {
   const messageContainerRef = useRef<HTMLDivElement>(null)
   const [isAtBottom, setIsAtBottom] = useState(true)
   const [showScrollButton, setShowScrollButton] = useState(false)
+  const interaction = useInteraction()
+  const { data: isSubscribed } = useGetSubscription()
 
   // Check if user is at the bottom of the container
   const handleScroll = () => {
@@ -78,12 +83,20 @@ export default function AskAI() {
         className="w-[90%] rounded-2xl bg-gray-100 shadow-inner dark:bg-gray-900"
       >
         <DialogTitle>Talk with AI</DialogTitle>
+
         <div className="flex flex-col items-end pb-1 rounded-lg relative">
           <div
             ref={messageContainerRef}
             className="max-h-[50vh] h-[50vh] overflow-y-scroll w-full flex flex-col gap-2"
             onScroll={handleScroll}
           >
+            {!isSubscribed && (
+              <div className="w-full text-center font-semibold text-xs text-muted-foreground">
+                {interaction
+                && interaction.count > 0
+                && `${interaction.count} / ${FREE_CREDITS_PER_DAY} credits left`}
+              </div>
+            )}
             <AnimatePresence>
               {messages.length === 0 && (
                 <div className="w-full h-full flex-col flex items-center justify-center">

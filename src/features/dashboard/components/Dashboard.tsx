@@ -4,15 +4,20 @@ import { SidebarProvider } from '@/components/ui/sidebar'
 import ThreadListDashboard from '@/features/dashboard/components/threadListDashboard'
 
 import useKbarMail from '@/features/kbar/useKbarMailPage'
-import ThreadDisplay from '@/features/threads/components/ThreadDisplay'
+import { ComposeEmail } from '@/features/mail/components/ComposeEmails'
 
+import Subscription from '@/features/subscription/components/ManageSubscription'
+import ThreadDisplay from '@/features/threads/components/ThreadDisplay'
 import { useMail } from '@/hooks/useMail'
 import { cn } from '@/lib/utils'
+import { UserButton } from '@clerk/clerk-react'
 import { TooltipProvider } from '../../../components/ui/tooltip'
+import AskAI from './AskAI'
 import SidebarDashboard from './sidebarDashboard'
 
 export function Dashboard() {
   const { threadId } = useMail()
+  const { chosenAccount } = useMail()
   useKbarMail()
 
   return (
@@ -31,7 +36,16 @@ export function Dashboard() {
                 `flex-1 md:flex h-full w-full col-span-1 hidden ${!threadId ? 'block' : 'hidden'} `,
               )}
             >
-              <ThreadListDashboard />
+              <ThreadListDashboard
+                children={(
+                  <div className="sticky py-1 bg-white dark:bg-black  flex items-center justify-center mt-3 gap-2  bottom-0">
+                    <UserButton />
+                    {chosenAccount && <AskAI />}
+
+                    <Subscription />
+                  </div>
+                )}
+              />
             </div>
 
             <div
@@ -44,6 +58,7 @@ export function Dashboard() {
             </div>
           </div>
         </div>
+        <ComposeEmail />
       </TooltipProvider>
     </SidebarProvider>
   )

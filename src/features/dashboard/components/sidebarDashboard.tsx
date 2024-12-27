@@ -12,18 +12,15 @@ export default function SidebarDashboard() {
     <Sidebar>
       <div className="flex pb-2 flex-col px-2 h-full flex-1">
         <SidebarHeader>
-          <div className={cn('flex h-[52px] items-center justify-between')}>
-            <AccountSwitcher isCollapsed={false} />
-          </div>
+          <AccountSwitcher />
         </SidebarHeader>
         <Separator />
-        <div className="flex-1">
+        <div className="flex-1 flex flex-col">
           <SidebarComponent isCollapsed={false} />
         </div>
 
         <SidebarFooter>
-          {/* <PremiumBanner /> */}
-          <div className={cn('flex items-center gap-2 px-2 py-1', {})}>
+          <div className={cn('flex items-center gap-2 px-2 py-1')}>
             <ModeToggle />
           </div>
         </SidebarFooter>

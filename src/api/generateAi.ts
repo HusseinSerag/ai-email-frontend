@@ -35,6 +35,7 @@ export async function generateChat(
   token: string,
   message: Message[],
   accountId: string,
+  cb?: (message: string) => void,
 ) {
   try {
     const response = await fetch(
@@ -50,6 +51,16 @@ export async function generateChat(
         },
       },
     )
+
+    if (!response.ok) {
+      const res = await response.json()
+      const message = res.message
+
+      if (response.status === 402) {
+        cb?.(message)
+      }
+      throw new Error(message)
+    }
     return response
   }
   catch (e) {

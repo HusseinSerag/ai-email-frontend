@@ -1,7 +1,11 @@
 import type { ChangeEvent } from 'react'
 import { generateChat } from '@/api/generateAi'
+import { subscriptionAtom } from '@/features/subscription/components/ManageSubscription'
+import { toast } from '@/hooks/use-toast'
 import { useCustomAuth } from '@/hooks/useCustomAuth'
 import { useMail } from '@/hooks/useMail'
+import { useQueryClient } from '@tanstack/react-query'
+import { useAtom } from 'jotai'
 import { useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
@@ -23,6 +27,8 @@ export function useChat(props?: Props) {
   const [error, setError] = useState('')
   const { getToken } = useCustomAuth()
   const { chosenAccount } = useMail()
+  const [_, setSubscription] = useAtom(subscriptionAtom)
+  const queryClient = useQueryClient()
 
   interface FormEvent {
     preventDefault: () => void
@@ -56,6 +62,13 @@ export function useChat(props?: Props) {
         token,
         [...messages, userMessage],
         chosenAccount.id,
+        (message) => {
+          setSubscription(true)
+          toast({
+            title: 'Subscription required',
+            description: message,
+          })
+        },
       )
       const reader = res.body?.pipeThrough(new TextDecoderStream()).getReader()
       setInput('')
@@ -90,6 +103,7 @@ export function useChat(props?: Props) {
     }
     setIsLoading(false)
     setIsGenerating(false)
+    await queryClient.invalidateQueries({ queryKey: ['interaction'] })
   }
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {

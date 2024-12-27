@@ -14,6 +14,7 @@ import { useEmailEditorStates } from '@/features/mail/hooks/useEmailEditorStates
 import { toast } from '@/hooks/use-toast'
 import { useMail } from '@/hooks/useMail'
 
+import { SquarePen } from 'lucide-react'
 import { useState } from 'react'
 import { createEmailFormData } from '../utils/createFormDataEmail'
 import EmailEditor from './EmailEditor'
@@ -79,7 +80,14 @@ export function ComposeEmail() {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button onClick={() => setOpen(true)}>Compose</Button>
+        <Button
+          className="absolute rounded-full z-[10] bottom-4 right-1"
+          variant="outline"
+          size="icon"
+          onClick={() => setOpen(true)}
+        >
+          <SquarePen />
+        </Button>
       </DrawerTrigger>
       <DrawerContent className="max-h-[50%]">
         <div className="mx-auto max-h-full overflow-y-auto  w-full max-w-3xl">
