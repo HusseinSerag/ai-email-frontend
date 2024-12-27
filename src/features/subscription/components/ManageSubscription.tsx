@@ -41,7 +41,7 @@ export default function Subscription() {
 
                 {!isSubscribed && (
                   <div className="text-sm font-semibold  text-gray-800 md:max-w-full dark:text-gray-400">
-                    {remainingCredit}
+                    {remainingCredit ?? 0}
                     {' '}
                     /
                     {FREE_CREDITS_PER_DAY}
