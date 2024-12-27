@@ -32,7 +32,7 @@ export default function Subscription() {
               className="absolute -bottom-6 -right-10 h-[180px] w-auto"
             />
             <div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <div className="text-xl font-bold">
                   {isSubscribed ? 'Premium' : 'Free'}
                   {' '}
