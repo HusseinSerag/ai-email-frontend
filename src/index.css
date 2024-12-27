@@ -82,9 +82,13 @@
 }
 :root {
   --loader: #000;
+  --bg-landing: #fff;
+  --dots-landing: #000;
 }
 .dark:root {
   --loader: #fff;
+  --bg-landing: #000;
+  --dots-landing: #fff;
 }
 :root,
 html,
@@ -153,8 +157,11 @@ body,
 }
 
 .home-main {
-  background-color: #ffffff;
+  background-color: var(--bg-landing);
   opacity: 0.7;
-  background-image: radial-gradient(#000000 0.5px, #ffffff 0.5px);
+  background-image: radial-gradient(
+    var(--dots-landing) 0.5px,
+    var(--bg-landing) 0.5px
+  );
   background-size: 10px 10px;
 }
