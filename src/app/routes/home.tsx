@@ -19,7 +19,7 @@ export default function Home() {
         size="sm"
         className="absolute shadow-lg border bg-gray-900 border-gray-800 text-gray-100 z-[10] top-4 right-4"
       >
-        {isSignedIn ? 'Get started' : 'Go to Mail'}
+        {!isSignedIn ? 'Get started' : 'Go to Mail'}
       </Button>
       <div className="home-main p-2 pt-10  h-[40%] flex flex-col items-center justify-center">
         <h1 className="sm:text-4xl mb-10 text-3xl text-center font-semibold text-black dark:text-white">
