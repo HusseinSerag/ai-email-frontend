@@ -5,14 +5,12 @@ import { useEffect } from 'react'
 export function useCustomAuth() {
   const { getToken, isSignedIn, signOut, isLoaded, userId } = useAuth()
   const queryClient = useQueryClient()
-  useEffect(
-    () => {
-      queryClient.resetQueries()
-      queryClient.cancelQueries()
+
+  useEffect(() => {
+    if (!isSignedIn) {
       queryClient.removeQueries()
-    },
-    [userId],
-  )
+    }
+  }, [userId])
 
   return { getToken, isSignedIn, signOut, isLoaded, userId }
 }

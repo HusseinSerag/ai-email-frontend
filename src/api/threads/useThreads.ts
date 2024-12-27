@@ -20,13 +20,13 @@ export default function useAccountThreads() {
   const queryClient = useQueryClient()
   const fn = async (page: number) => {
     try {
-      if (!accountId || !tab || !userId) {
+      const token = await getToken()
+      if (!accountId || !tab || !userId || !done || !token) {
         throw new Error('No account ID')
       }
-      const token = await getToken()
 
       return (
-        await createAxiosClient(token!).get<{
+        await createAxiosClient(token).get<{
           data: EmailThreadArray
           meta: {
             currentPage: number

@@ -38,7 +38,7 @@ export default function ThreadListDashboard({ children }: Props) {
         <div className="flex justify-between  items-center sticky top-0 px-2 py-2">
           <h1 className="text-xl ml-2 flex items-center font-bold">
             <SidebarTrigger />
-            {tab[0].toLocaleUpperCase() + tab.slice(1)}
+            {tab && tab[0].toLocaleUpperCase() + tab.slice(1)}
           </h1>
           <TabsList>
             <TabsTrigger

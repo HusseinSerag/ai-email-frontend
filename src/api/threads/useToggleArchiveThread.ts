@@ -14,14 +14,14 @@ export default function useToggleArchiveThread() {
   const accountId = chosenAccount?.id
   const { mutate: archiveThread, isPending: isArchiving } = useMutation({
     async mutationFn() {
+      const token = await getToken()
       try {
-        if (!accountId || !threadId || !userId) {
+        if (!accountId || !threadId || !userId || !token) {
           throw new Error('No account ID')
         }
-        const token = await getToken()
 
         return (
-          await createAxiosClient(token!).patch<{ archived: boolean }>(
+          await createAxiosClient(token).patch<{ archived: boolean }>(
             `/api/threads/archive/${accountId}/${threadId}`,
             {},
           )

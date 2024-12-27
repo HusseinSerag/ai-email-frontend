@@ -25,10 +25,10 @@ export default function Router() {
       <Routes>
         <Route path="error" element={<ErrorPage />} />
         <Route element={<LoadUserLayout />}>
+          <Route element={<Home />} path="/" />
           <Route element={<SignInPage />} path="/sign-in" />
           <Route element={<SignUpPage />} path="/sign-up" />
 
-          <Route element={<Home />} path="/" />
           <Route element={<ProtectedRoutes />}>
             <Route element={<Mail />} path="/mail" />
           </Route>

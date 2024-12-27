@@ -16,8 +16,8 @@ import AskAI from './AskAI'
 import SidebarDashboard from './sidebarDashboard'
 
 export function Dashboard() {
-  const { threadId } = useMail()
-  const { chosenAccount } = useMail()
+  const { threadId, chosenAccount } = useMail()
+
   useKbarMail()
 
   return (

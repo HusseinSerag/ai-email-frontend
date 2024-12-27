@@ -7,13 +7,14 @@ import { ClerkProvider } from '@clerk/clerk-react'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ErrorBoundary } from 'react-error-boundary'
 import { useNavigate } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
+
 import { ThemeProvider } from '../context/themeProvider'
 
 import Kbar from '../features/kbar'
-import { useSetTitle } from '../hooks/useSetTitle'
 import Router from './router'
 import '@cyntler/react-doc-viewer/dist/index.css'
 
@@ -41,7 +42,7 @@ export default function Provider() {
             <Component />
           </ClerkProvider>
           <Toaster />
-          {/* <ReactQueryDevtools  initialIsOpen={false} position="top" /> */}
+          <ReactQueryDevtools initialIsOpen={false} position="top" />
         </QueryClientProvider>
       )}
       {!isOnline && (
@@ -54,8 +55,6 @@ export default function Provider() {
 }
 
 function Component() {
-  useSetTitle()
-
   return (
     <ThemeProvider>
       <Kbar>
