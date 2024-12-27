@@ -16,13 +16,13 @@ export default function useReplyToInfo() {
 
     async queryFn() {
       try {
-        if (!accountId || !threadId || !userId) {
+        const token = await getToken()
+        if (!accountId || !threadId || !userId || !token) {
           throw new Error('No account ID')
         }
-        const token = await getToken()
 
         return (
-          await createAxiosClient(token!).get<ReplyToInformation>(
+          await createAxiosClient(token).get<ReplyToInformation>(
             `/api/threads/info/${accountId}/${threadId}`,
             {},
           )

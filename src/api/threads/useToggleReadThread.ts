@@ -16,13 +16,13 @@ export default function useToggleReadThread() {
   const { mutate: toggleRead, isPending: isTogglingRead } = useMutation({
     async mutationFn({ threadId }: { threadId: string }) {
       try {
-        if (!accountId || !threadId || !userId) {
+        const token = await getToken()
+        if (!accountId || !threadId || !userId || !token) {
           throw new Error('No account ID')
         }
-        const token = await getToken()
 
         return (
-          await createAxiosClient(token!).patch<{ unread: boolean }>(
+          await createAxiosClient(token).patch<{ unread: boolean }>(
             `/api/threads/read/${accountId}/${threadId}`,
             {},
           )

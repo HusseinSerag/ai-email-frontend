@@ -11,13 +11,13 @@ export default function useThreadCount() {
     queryKey: ['thread-count', userId, accountId],
     async queryFn() {
       try {
-        if (accountId === '') {
+        const token = await getToken()
+        if (!accountId || !userId || !token) {
           throw new Error('No account ID')
         }
-        const token = await getToken()
 
         return (
-          await createAxiosClient(token!).get<{
+          await createAxiosClient(token).get<{
             draft: number
             sent: number
             inbox: number

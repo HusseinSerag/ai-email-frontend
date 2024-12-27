@@ -12,13 +12,12 @@ export default function useSuggestions() {
   const { data: suggestions, isPending: isPendingSuggestions } = useQuery({
     queryKey: ['suggestions', userId, chosenAccount?.id],
     async queryFn() {
-      if (!userId || !chosenAccount)
+      const token = await getToken()
+      if (!userId || !chosenAccount || !token)
         throw new Error('No userId')
       try {
-        const token = await getToken()
-
         return (
-          await createAxiosClient(token!).get<
+          await createAxiosClient(token).get<
             Omit<EmailParticipant, 'accountId'>[]
           >(`/api/email/suggestions/${chosenAccount.id}`)
         ).data

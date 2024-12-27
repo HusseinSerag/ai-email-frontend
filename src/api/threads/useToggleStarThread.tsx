@@ -16,13 +16,13 @@ export default function useToggleStarThread() {
   const { mutate: toggleThread, isPending: isToggling } = useMutation({
     async mutationFn() {
       try {
-        if (!accountId || !threadId || !userId) {
+        const token = await getToken()
+        if (!accountId || !threadId || !userId || !token) {
           throw new Error('No account ID')
         }
-        const token = await getToken()
 
         return (
-          await createAxiosClient(token!).patch<{ starred: boolean }>(
+          await createAxiosClient(token).patch<{ starred: boolean }>(
             `/api/threads/star/${accountId}/${threadId}`,
             {},
           )

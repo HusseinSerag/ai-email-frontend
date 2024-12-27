@@ -10,12 +10,12 @@ export default function useUserAccounts() {
 
     async queryFn() {
       try {
-        if (!userId)
-          throw new Error('No userId')
         const token = await getToken()
+        if (!userId || !token)
+          throw new Error('No userId')
 
         return (
-          await createAxiosClient(token!).get<Account[]>('/api/accounts/user')
+          await createAxiosClient(token).get<Account[]>('/api/accounts/user')
         ).data
       }
       catch (e) {
