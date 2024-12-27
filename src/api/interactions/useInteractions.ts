@@ -38,7 +38,7 @@ function transformData(interaction: Interaction) {
   interaction.count
     = new Date(
       new Date(interaction?.firstInteraction).getTime() + 24 * 60 * 60 * 1000,
-    ) < new Date()
+    ) > new Date()
       ? 0
       : interaction.count
   return interaction
